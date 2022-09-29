@@ -29,9 +29,9 @@ const LeftDrawerScreen = () => {
     <LeftDrawer.Navigator
       id="LeftDrawer"
       screenOptions={{
-        // drawerStyle: {
-        //   width: '100%',
-        // },
+        drawerStyle: {
+          width: '100%',
+        },
         drawerPosition: 'left',
       }}
       drawerContent={() => <LeftDrawerContent />}
