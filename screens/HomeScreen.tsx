@@ -8,32 +8,43 @@ const HomeScreen = () => {
       <View className="relative mt-2">
         <View className="absolute w-full h-full z-[10] bg-black/30"></View>
         <Image
-          style={{ resizeMode: "cover", width: "100%", height: 500 }}
+          style={{ resizeMode: 'cover', width: '100%', height: 500 }}
           source={{
-            uri: "https://staticpages.mngbcn.com/homes/images/fw22/she/septiembre/she_landing_newnow_0109.jpg?imwidth=1440&imdensity=2",
+            uri: 'https://staticpages.mngbcn.com/homes/images/fw22/she/septiembre/she_landing_newnow_0109.jpg?imwidth=1440&imdensity=2',
           }}
         />
-        <Text
-          style={{
-            textTransform: "uppercase",
-            position: "absolute",
-            zIndex: 20,
-            fontWeight: "600",
-            letterSpacing: 1,
-            fontSize: 24,
-            top: "42%",
-            left: "15%",
-            color: "white",
-            fontFamily: "Raleway-Bold",
-          }}
-        >
-          The Office Etiquette
-        </Text>
+        <View className="absolute w-full h-full z-[20] items-center justify-center ">
+          <Text
+            style={{
+              textTransform: 'uppercase',
+              fontWeight: '600',
+              letterSpacing: 1,
+              fontSize: 32,
+              color: 'white',
+              fontFamily: 'Raleway-Bold',
+            }}
+          >
+            The Office
+          </Text>
+          <Text
+            style={{
+              textTransform: 'uppercase',
+              fontWeight: '600',
+              letterSpacing: 1,
+              fontSize: 32,
+              color: 'white',
+              fontFamily: 'Raleway-Bold',
+            }}
+          >
+            Etiquette
+          </Text>
+        </View>
+
         <TouchableOpacity
           activeOpacity={0.9}
           className="bg-white p-3 px-5 z-[20] absolute bottom-10 left-[35%]"
         >
-          <Text style={{ fontFamily: "Raleway-Regular" }}>Узнать больше</Text>
+          <Text style={{ fontFamily: 'Raleway-Regular' }}>Узнать больше</Text>
         </TouchableOpacity>
       </View>
 
