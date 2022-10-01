@@ -33,13 +33,10 @@ const ProductsScreen = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-    dispatch(getCategories());
   }, []);
   return (
     <SafeAreaView className="flex-1 bg-white">
-      {loading ? (
-        <Loader />
-      ) : products.length ? (
+      {products.length ? (
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{ flexGrow: 1 }}

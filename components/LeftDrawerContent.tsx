@@ -1,14 +1,28 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { Feather, FontAwesome, AntDesign, Ionicons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 
-import { useAppSelector } from '../app/hooks';
+import { useAppSelector, useAppDispatch } from '../app/hooks';
+import {
+  setSelectedCategory,
+  getCategories,
+} from '../features/products/products';
 import { useNavigation } from '@react-navigation/native';
 
 const LeftDrawerContent = () => {
   const navigation = useNavigation();
 
+  const dispatch = useAppDispatch();
+
   const { user } = useAppSelector((state) => state.auth);
+
+  const { categories } = useAppSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView style={{ marginTop: 20 }}>
@@ -22,95 +36,23 @@ const LeftDrawerContent = () => {
               Home
             </Text>
           </TouchableOpacity>
-          {/* @ts-ignore */}
-          <TouchableOpacity onPress={() => navigation.navigate('Products')}>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className=" text-[16px] tracking-[1px]"
+          {categories.map((c) => (
+            <TouchableOpacity
+              key={c}
+              onPress={() => {
+                dispatch(setSelectedCategory(c));
+                /* @ts-ignore */
+                navigation.navigate('Products');
+              }}
             >
-              Все товары
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Блузки
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Домашняя одежда
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Кофты
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Майки
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Платья
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Туники
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Брюки
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Капри
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Джинсы
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text
-              style={{ fontFamily: 'Raleway-Regular' }}
-              className="text-[16px] tracking-[1px]"
-            >
-              Шорты
-            </Text>
-          </TouchableOpacity>
+              <Text
+                style={{ fontFamily: 'Raleway-Regular' }}
+                className=" text-[16px] tracking-[1px]"
+              >
+                {c === 'All' ? 'Все товары' : c}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
         <View
           style={{ marginTop: 10 }}
