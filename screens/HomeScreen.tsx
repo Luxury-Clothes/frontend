@@ -5,7 +5,7 @@ import { HomeScreenCard, Footer } from "../components";
 const HomeScreen = () => {
   return (
     <ScrollView className="bg-white" style={{ flex: 1 }}>
-      <View className="relative mt-2">
+      <View className="relative">
         <View className="absolute w-full h-full z-[10] bg-black/30"></View>
         <Image
           style={{ resizeMode: 'cover', width: '100%', height: 500 }}

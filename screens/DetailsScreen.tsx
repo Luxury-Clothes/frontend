@@ -179,16 +179,6 @@ const DetailsScreen = () => {
               fontFamily: 'Raleway-Regular',
             }}
           >
-            {product.tags}
-          </Text>
-          <Text
-            className="mt-4"
-            style={{
-              fontSize: 14,
-              lineHeight: 22,
-              fontFamily: 'Raleway-Regular',
-            }}
-          >
             {product.description}
           </Text>
         </View>
@@ -196,22 +186,16 @@ const DetailsScreen = () => {
           style={{ marginLeft: 0, marginTop: 1 }}
           className="flex-row gap-4 items-center"
         >
-          <View className="p-2 bg-gray-200">
-            <Text
-              className="text-[#333]"
-              style={{ fontFamily: 'Raleway-Regular' }}
-            >
-              Женская
-            </Text>
-          </View>
-          <View className="p-2 bg-gray-200">
-            <Text
-              className="text-[#333]"
-              style={{ fontFamily: 'Raleway-Regular' }}
-            >
-              Рубашки
-            </Text>
-          </View>
+          {product.tags.split(',').map((tag) => (
+            <View key={tag} className="p-2 bg-gray-200">
+              <Text
+                className="text-[#333]"
+                style={{ fontFamily: 'Raleway-Regular' }}
+              >
+                {tag}
+              </Text>
+            </View>
+          ))}
         </View>
         <Footer />
         {/* <View
