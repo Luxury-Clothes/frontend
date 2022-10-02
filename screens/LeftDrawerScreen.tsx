@@ -27,6 +27,7 @@ const LeftDrawerScreen = () => {
 
   return (
     <LeftDrawer.Navigator
+      backBehavior="history"
       id="LeftDrawer"
       screenOptions={{
         drawerStyle: {

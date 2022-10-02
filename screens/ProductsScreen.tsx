@@ -7,17 +7,15 @@ import {
 } from 'react-native';
 import { useEffect } from 'react';
 
-import { Card, Loader } from '../components';
+import { Card } from '../components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
-  getProducts,
-  getCategories,
   searchProducts,
   fetchMoreProducts,
   setPage,
 } from '../features/products/products';
 
-const ProductsScreen = () => {
+const ProductsScreen = ({ navigation }: any) => {
   const dispatch = useAppDispatch();
 
   const { products, selectedCategory, searchTerm, page, loading } =
@@ -31,9 +29,6 @@ const ProductsScreen = () => {
     if (page !== 1) dispatch(fetchMoreProducts());
   }, [page]);
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
   return (
     <SafeAreaView className="flex-1 bg-white">
       {products.length ? (
@@ -51,7 +46,9 @@ const ProductsScreen = () => {
             }
           }}
           ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
-          renderItem={({ item }) => <Card product={item} />}
+          renderItem={({ item }) => (
+            <Card navigation={navigation} product={item} />
+          )}
         />
       ) : (
         <View className="flex-1 items-center justify-center">

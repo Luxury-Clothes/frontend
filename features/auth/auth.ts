@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { IUser } from '../../interfaces';
+import { IUser } from '../../types';
 
 interface IState {
   user: IUser | null;

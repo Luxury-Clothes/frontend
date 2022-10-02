@@ -40,7 +40,7 @@ const LeftDrawerContent = () => {
             <TouchableOpacity
               key={c}
               onPress={() => {
-                dispatch(setSelectedCategory(c));
+                dispatch(setSelectedCategory(c.toLowerCase()));
                 /* @ts-ignore */
                 navigation.navigate('Products');
               }}

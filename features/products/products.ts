@@ -19,6 +19,7 @@ export const getProducts = createAsyncThunk(
   '/products/getProducts',
   async (_, thunkAPI) => {
     try {
+      // console.log('get products');
       const { data } = await axios.get('/products');
       return data;
     } catch (error) {
@@ -45,6 +46,7 @@ export const searchProducts = createAsyncThunk(
   '/products/searchProducts',
   async (_, thunkAPI) => {
     try {
+      // console.log('search products');
       // @ts-ignore
       const selectedCategory = thunkAPI.getState().products.selectedCategory;
       // @ts-ignore
@@ -66,6 +68,7 @@ export const fetchMoreProducts = createAsyncThunk(
   '/products/fetchMoreProducts',
   async (_, thunkAPI) => {
     try {
+      // console.log('fetch more products');
       // @ts-ignore
       const selectedCategory = thunkAPI.getState().products.selectedCategory;
       // @ts-ignore

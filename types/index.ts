@@ -1,5 +1,3 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-
 export interface IProduct {
   id: string;
   title: string;

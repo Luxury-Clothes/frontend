@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { IProduct } from '../../interfaces';
+import { IProduct } from '../../types';
 
 interface ICartProduct extends IProduct {
   quantity: number;
