@@ -33,8 +33,6 @@ const DetailsScreen = () => {
   const addToCart = async () => {
     Alert.alert('Успешно', `${product.title} успешно добавлена в корзину.`);
     dispatch(addProduct(product));
-    // @ts-ignore
-    // navigation.navigate('Home');
   };
 
   //product horizontal scroll product card

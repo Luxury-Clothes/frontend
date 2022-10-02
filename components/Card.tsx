@@ -1,8 +1,7 @@
 import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-import { IProduct } from '../interfaces';
+import { IProduct } from '../types';
 import { setSelectedProduct } from '../features/products/products';
 import { useAppDispatch } from '../app/hooks';
 
@@ -10,15 +9,15 @@ const width = Dimensions.get('screen').width / 2;
 
 interface CardProps {
   product: IProduct;
+  navigation: any;
 }
 
-const Card: React.FC<CardProps> = ({ product }) => {
+const Card: React.FC<CardProps> = ({ product, navigation }) => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       onPress={() => {
-        // @ts-ignore
         navigation.navigate('Details');
         dispatch(setSelectedProduct(product));
       }}
@@ -30,7 +29,9 @@ const Card: React.FC<CardProps> = ({ product }) => {
         <Image
           className="h-[270px]"
           style={{ resizeMode: 'contain', width }}
-          source={{ uri: product.image }}
+          source={{
+            uri: product.image,
+          }}
         />
       </View>
       <View className="p-2">

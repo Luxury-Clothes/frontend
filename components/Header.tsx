@@ -28,17 +28,28 @@ const Header = () => {
         }}
       >
         <TouchableOpacity
-          // @ts-ignore
-          onPress={() => navigation.getParent('LeftDrawer').openDrawer()}
+          onPress={() => {
+            route.name === 'Details' || route.name === 'ShoppingCart'
+              ? // @ts-ignore
+                navigation.goBack()
+              : // @ts-ignore
+                navigation.getParent('LeftDrawer').openDrawer();
+          }}
           style={{
             justifyContent: 'center',
             alignItems: 'center',
             marginRight: 20,
           }}
         >
-          <Ionicons name="menu-outline" size={28} color="gray" />
+          {route.name === 'Details' || route.name === 'ShoppingCart' ? (
+            <AntDesign name="arrowleft" size={28} color="gray" />
+          ) : (
+            <Ionicons name="menu-outline" size={28} color="gray" />
+          )}
           <Text style={{ fontSize: 12, fontFamily: 'Raleway-Regular' }}>
-            Меню
+            {route.name === 'Details' || route.name === 'ShoppingCart'
+              ? 'Назад'
+              : 'Menu'}
           </Text>
         </TouchableOpacity>
         {/* @ts-ignore */}
@@ -66,42 +77,42 @@ const Header = () => {
         </TouchableOpacity>
       </View>
       <View className="w-full h-[1px] bg-gray-200 my-2"></View>
-      {route.name !== 'Login' &&
-        route.name !== 'Register' &&
-        route.name !== 'ShoppingCart' && (
+      {!['Login', 'Register', 'ShoppingCart', 'Details'].includes(
+        route.name
+      ) && (
+        <View
+          style={{
+            height: 40,
+            paddingHorizontal: 20,
+            paddingBottom: 8,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
           <View
-            style={{
-              height: 40,
-              paddingHorizontal: 20,
-              paddingBottom: 8,
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}
+            style={{ borderRadius: 4 }}
+            className="flex-row w-[90%] h-full pl-2 items-center bg-gray-100/90"
           >
-            <View
-              style={{ borderRadius: 4 }}
-              className="flex-row w-[90%] h-full pl-2 items-center bg-gray-100/90"
-            >
-              <AntDesign name="search1" size={20} color="gray" />
-              <TextInput
-                placeholder="Искать"
-                style={{ fontFamily: 'Raleway-Regular' }}
-                value={searchTerm}
-                onChangeText={(text) => dispatch(setSearchTerm(text))}
-                className="ml-2 font-semibold text-[16px] flex-1"
-              />
-            </View>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch(setIsFilterOpen(true));
-              }}
-              style={{ marginLeft: 'auto' }}
-            >
-              <FontAwesome name="sort-alpha-asc" size={20} color="#666" />
-              {/* <Ionicons name="filter-outline" size={24} color="gray" /> */}
-            </TouchableOpacity>
+            <AntDesign name="search1" size={20} color="gray" />
+            <TextInput
+              placeholder="Искать"
+              style={{ fontFamily: 'Raleway-Regular' }}
+              value={searchTerm}
+              onChangeText={(text) => dispatch(setSearchTerm(text))}
+              className="ml-2 font-semibold text-[16px] flex-1"
+            />
           </View>
-        )}
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(setIsFilterOpen(true));
+            }}
+            style={{ marginLeft: 'auto' }}
+          >
+            <FontAwesome name="sort-alpha-asc" size={20} color="#666" />
+            {/* <Ionicons name="filter-outline" size={24} color="gray" /> */}
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
