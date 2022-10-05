@@ -13,6 +13,7 @@ import {
   searchProducts,
   fetchMoreProducts,
   setPage,
+  getFavourites,
 } from '../features/products/products';
 
 const ProductsScreen = ({ navigation }: any) => {
@@ -20,6 +21,10 @@ const ProductsScreen = ({ navigation }: any) => {
 
   const { products, selectedCategory, searchTerm, page, loading } =
     useAppSelector((state) => state.products);
+
+  useEffect(() => {
+    dispatch(getFavourites());
+  }, []);
 
   useEffect(() => {
     dispatch(searchProducts());

@@ -3,7 +3,11 @@ import { Ionicons, Feather, AntDesign, FontAwesome } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { setSearchTerm, setIsFilterOpen } from "../features/products/products";
+import {
+  setSearchTerm,
+  setIsFilterOpen,
+  setFavouritesSearchTerm,
+} from '../features/products/products';
 
 const Header = () => {
   const navigation = useNavigation();
@@ -14,7 +18,9 @@ const Header = () => {
 
   const { user } = useAppSelector((state) => state.auth);
 
-  const { searchTerm } = useAppSelector((state) => state.products);
+  const { searchTerm, favouritesSearchTerm } = useAppSelector(
+    (state) => state.products
+  );
 
   return (
     <View style={{ backgroundColor: 'white' }}>
@@ -97,8 +103,14 @@ const Header = () => {
             <TextInput
               placeholder="Искать"
               style={{ fontFamily: 'Raleway-Regular' }}
-              value={searchTerm}
-              onChangeText={(text) => dispatch(setSearchTerm(text))}
+              value={
+                route.name === 'Favourites' ? favouritesSearchTerm : searchTerm
+              }
+              onChangeText={(text) => {
+                route.name === 'Favourites'
+                  ? dispatch(setFavouritesSearchTerm(text))
+                  : dispatch(setSearchTerm(text));
+              }}
               className="ml-2 font-semibold text-[16px] flex-1"
             />
           </View>

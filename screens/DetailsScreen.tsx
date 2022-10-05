@@ -12,13 +12,14 @@ import {
 import { Entypo, AntDesign } from '@expo/vector-icons';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { toggleFavourite } from '../features/products/products';
 import { Footer } from '../components';
-import { addProduct } from '../features/cart/cart';
+import { addProduct, addProductToCart } from '../features/cart/cart';
 
 const DetailsScreen = () => {
   const width = Dimensions.get('window').width;
 
-  const { selectedProduct: product } = useAppSelector(
+  const { selectedProduct: product, favourites } = useAppSelector(
     (state) => state.products
   );
 
@@ -33,6 +34,7 @@ const DetailsScreen = () => {
   const addToCart = async () => {
     Alert.alert('Успешно', `${product.title} успешно добавлена в корзину.`);
     dispatch(addProduct(product));
+    dispatch(addProductToCart(product));
   };
 
   //product horizontal scroll product card
@@ -75,7 +77,7 @@ const DetailsScreen = () => {
         >
           <FlatList
             data={
-              product.images.length !== 0 ? product.images : [product.image]
+              product?.images?.length !== 0 ? product?.images : [product?.image]
             }
             horizontal
             renderItem={renderProduct}
@@ -106,8 +108,8 @@ const DetailsScreen = () => {
               alignItems: 'center',
             }}
           >
-            {product.images
-              ? product.images.map((data, index) => {
+            {product?.images
+              ? product?.images.map((data, index) => {
                   let opacity = position.interpolate({
                     inputRange: [index - 1, index, index + 1],
                     outputRange: [0.2, 1, 0.2],
@@ -143,8 +145,15 @@ const DetailsScreen = () => {
           <Text style={{ fontFamily: 'Raleway-Regular' }}>Выберите размер</Text>
           <Entypo name="chevron-down" size={16} color="#666" />
         </TouchableOpacity>
-        <TouchableOpacity className="mt-4 bg-[#333] p-2 ml-4 justify-center items-center w-12">
-          <AntDesign name="hearto" size={24} color="white" />
+        <TouchableOpacity
+          onPress={() => dispatch(toggleFavourite(product))}
+          className="mt-4 bg-[#333] p-2 ml-4 justify-center items-center w-12"
+        >
+          {favourites.map((p) => p.id).includes(product.id) ? (
+            <AntDesign name="heart" size={24} color="white" />
+          ) : (
+            <AntDesign name="hearto" size={24} color="white" />
+          )}
         </TouchableOpacity>
         <TouchableOpacity className="flex-row items-center justify-center mx-4 p-4 border border-gray-300 mt-4">
           <Text style={{ fontFamily: 'Raleway-Regular' }}>
