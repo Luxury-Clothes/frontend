@@ -12,12 +12,18 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { setSelectedProduct } from '../features/products/products';
 import {
   removeProduct,
   incrementProduct,
   decrementProduct,
   createPaymentIntent,
   clearCart,
+  getCartItems,
+  removeProductInCart,
+  incrementProductInCart,
+  decrementProductInCart,
+  clearProductsInCart,
 } from '../features/cart/cart';
 
 const MyCart = () => {
@@ -28,6 +34,10 @@ const MyCart = () => {
   const { cartItems, total, subtotal, tax, clientSecret } = useAppSelector(
     (state) => state.cart
   );
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, []);
 
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
@@ -64,6 +74,7 @@ const MyCart = () => {
         onDismiss: () => console.warn('later'),
       });
       dispatch(clearCart());
+      dispatch(clearProductsInCart());
       // @ts-ignore
       navigation.navigate('Products');
     }
@@ -77,8 +88,11 @@ const MyCart = () => {
     return (
       <TouchableOpacity
         key={product.id}
-        // @ts-ignore
-        onPress={() => navigation.navigate('Details', { product })}
+        onPress={() => {
+          // @ts-ignore
+          navigation.navigate('Details');
+          dispatch(setSelectedProduct(product));
+        }}
         style={{
           width: '100%',
           height: 200,
@@ -94,7 +108,7 @@ const MyCart = () => {
             borderRadius: 10,
             marginRight: 22,
           }}
-          className="bg-gray-200/90"
+          className="bg-gray-200/60"
         >
           <Image
             source={{ uri: product.image }}
@@ -176,7 +190,12 @@ const MyCart = () => {
             >
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => dispatch(decrementProduct(product))}
+                onPress={() => {
+                  if (product.quantity > 1) {
+                    dispatch(decrementProduct(product));
+                    dispatch(decrementProductInCart(product));
+                  }
+                }}
                 style={{
                   borderRadius: 100,
                   marginRight: 10,
@@ -197,7 +216,10 @@ const MyCart = () => {
               <Text>{product.quantity}</Text>
               <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => dispatch(incrementProduct(product))}
+                onPress={() => {
+                  dispatch(incrementProduct(product));
+                  dispatch(incrementProductInCart(product));
+                }}
                 style={{
                   borderRadius: 100,
                   marginLeft: 10,
@@ -216,7 +238,12 @@ const MyCart = () => {
                 />
               </TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => dispatch(removeProduct(product))}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch(removeProduct(product));
+                dispatch(removeProductInCart(product));
+              }}
+            >
               <MaterialCommunityIcons
                 name="delete-outline"
                 style={{
@@ -315,7 +342,7 @@ const MyCart = () => {
             >
               Адрес доставки
             </Text>
-            <View
+            <TouchableOpacity
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -343,7 +370,7 @@ const MyCart = () => {
                     name="truck-delivery-outline"
                     style={{
                       fontSize: 18,
-                      color: '#0043f9',
+                      color: '#333',
                     }}
                   />
                 </View>
@@ -355,7 +382,7 @@ const MyCart = () => {
                       fontWeight: '500',
                     }}
                   >
-                    2 Petre Melikishvili St.
+                    Березовая 11
                   </Text>
                   <Text
                     style={{
@@ -366,7 +393,7 @@ const MyCart = () => {
                       opacity: 0.5,
                     }}
                   >
-                    0162, Tbilisi
+                    443080 Самара
                   </Text>
                 </View>
               </View>
@@ -374,7 +401,7 @@ const MyCart = () => {
                 name="chevron-right"
                 style={{ fontSize: 22, color: '#000' }}
               />
-            </View>
+            </TouchableOpacity>
           </View>
           {/* <View
             style={{

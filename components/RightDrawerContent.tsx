@@ -10,15 +10,13 @@ import {
 import { Avatar } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch } from '../app/hooks';
 import { logout } from '../features/auth/auth';
 
 const LeftDrawerContent = () => {
   const navigation = useNavigation();
 
   const dispatch = useAppDispatch();
-
-  const { user } = useAppSelector((state) => state.auth);
 
   const onLogout = () => {
     dispatch(logout());
@@ -65,7 +63,10 @@ const LeftDrawerContent = () => {
               История Заказов
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-row items-center">
+          <TouchableOpacity
+            className="flex-row items-center" // @ts-ignore
+            onPress={() => navigation.navigate('Favourites')}
+          >
             <FontAwesome name="heart-o" size={16} color="gray" />
             <Text
               className="ml-2 text-gray-700 text-[16px]"

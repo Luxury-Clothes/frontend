@@ -2,8 +2,11 @@ import { View, Text, Dimensions, Image, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { IProduct } from '../types';
-import { setSelectedProduct } from '../features/products/products';
-import { useAppDispatch } from '../app/hooks';
+import {
+  setSelectedProduct,
+  toggleFavourite,
+} from '../features/products/products';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 
 const width = Dimensions.get('screen').width / 2;
 
@@ -14,6 +17,8 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ product, navigation }) => {
   const dispatch = useAppDispatch();
+
+  const { favourites } = useAppSelector((state) => state.products);
 
   return (
     <TouchableOpacity
@@ -37,8 +42,12 @@ const Card: React.FC<CardProps> = ({ product, navigation }) => {
       <View className="p-2">
         <View className="flex-row justify-between">
           <Text className="uppercase font-semibold text-[#333]">New now</Text>
-          <TouchableOpacity>
-            <AntDesign name="hearto" size={16} color="gray" />
+          <TouchableOpacity onPress={() => dispatch(toggleFavourite(product))}>
+            {favourites.map((p) => p.id).includes(product.id) ? (
+              <AntDesign name="heart" size={16} color="#333" />
+            ) : (
+              <AntDesign name="hearto" size={16} color="#333" />
+            )}
           </TouchableOpacity>
         </View>
         <Text
