@@ -35,7 +35,9 @@ const Header = () => {
       >
         <TouchableOpacity
           onPress={() => {
-            route.name === 'Details' || route.name === 'ShoppingCart'
+            route.name === 'Details' ||
+            route.name === 'ShoppingCart' ||
+            route.name === 'Shipping'
               ? // @ts-ignore
                 navigation.goBack()
               : // @ts-ignore
@@ -47,13 +49,17 @@ const Header = () => {
             marginRight: 20,
           }}
         >
-          {route.name === 'Details' || route.name === 'ShoppingCart' ? (
+          {route.name === 'Details' ||
+          route.name === 'ShoppingCart' ||
+          route.name === 'Shipping' ? (
             <AntDesign name="arrowleft" size={28} color="gray" />
           ) : (
             <Ionicons name="menu-outline" size={28} color="gray" />
           )}
           <Text style={{ fontSize: 12, fontFamily: 'Raleway-Regular' }}>
-            {route.name === 'Details' || route.name === 'ShoppingCart'
+            {route.name === 'Details' ||
+            route.name === 'ShoppingCart' ||
+            'Shipping'
               ? 'Назад'
               : 'Menu'}
           </Text>
@@ -83,7 +89,7 @@ const Header = () => {
         </TouchableOpacity>
       </View>
       <View className="w-full h-[1px] bg-gray-200 my-2"></View>
-      {!['Login', 'Register', 'ShoppingCart', 'Details'].includes(
+      {!['Login', 'Register', 'ShoppingCart', 'Details', 'Shipping'].includes(
         route.name
       ) && (
         <View
