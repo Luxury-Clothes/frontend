@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { IProduct } from '../../types';
+import { ICartProduct, IProduct } from '../../types';
 
-interface ICartProduct extends IProduct {
-  quantity: number;
-}
 
 interface IState {
   cartItems: ICartProduct[];
@@ -13,6 +10,11 @@ interface IState {
   subtotal: number;
   tax: number;
   clientSecret: string;
+  country: string;
+  city: string;
+  postal_code: number | string;
+  street: string;
+  street_number: number | string;
 }
 
 const initialState: IState = {
@@ -21,6 +23,11 @@ const initialState: IState = {
   subtotal: 0,
   tax: 0,
   clientSecret: '',
+  country: 'Россия (Российская Федерация)',
+  city: '',
+  postal_code: '',
+  street: '',
+  street_number: '',
 };
 
 export const createPaymentIntent = createAsyncThunk(
@@ -196,6 +203,18 @@ export const cartSlice = createSlice({
       state.total = 0;
       state.clientSecret = '';
     },
+    setStreetNumber: (state, action: PayloadAction<string>) => {
+      state.street_number = action.payload;
+    },
+    setCity: (state, action: PayloadAction<string>) => {
+      state.city = action.payload;
+    },
+    setPostalCode: (state, action: PayloadAction<number>) => {
+      state.postal_code = action.payload;
+    },
+    setStreet: (state, action: PayloadAction<string>) => {
+      state.street = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -224,6 +243,10 @@ export const {
   incrementProduct,
   decrementProduct,
   clearCart,
+  setCity,
+  setStreet,
+  setPostalCode,
+  setStreetNumber,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

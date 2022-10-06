@@ -11,6 +11,8 @@ import DetailsScreen from './DetailsScreen';
 import ShoppingCartScreen from './ShoppingCartScreen';
 import ProductsScreen from './ProductsScreen';
 import FavouritesScreen from './FavouritesScreen';
+import ShippingAddressScreen from './ShippingAddressScreen';
+import OrdersScreen from './OrdersScreen';
 
 import { LeftDrawerContent, Header } from '../components';
 import { init } from '../features/auth/auth';
@@ -87,6 +89,20 @@ const LeftDrawerScreen = () => {
         }}
         name="Favourites"
         component={FavouritesScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name="Shipping"
+        component={ShippingAddressScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name="Orders"
+        component={OrdersScreen}
       />
     </LeftDrawer.Navigator>
   );

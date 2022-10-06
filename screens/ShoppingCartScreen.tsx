@@ -25,15 +25,25 @@ import {
   decrementProductInCart,
   clearProductsInCart,
 } from '../features/cart/cart';
+import { createOrder } from '../features/orders/orders';
 
 const MyCart = () => {
   const navigation = useNavigation();
 
   const dispatch = useAppDispatch();
 
-  const { cartItems, total, subtotal, tax, clientSecret } = useAppSelector(
-    (state) => state.cart
-  );
+  const {
+    cartItems,
+    total,
+    subtotal,
+    tax,
+    clientSecret,
+    city,
+    country,
+    postal_code,
+    street,
+    street_number,
+  } = useAppSelector((state) => state.cart);
 
   useEffect(() => {
     dispatch(getCartItems());
@@ -70,6 +80,7 @@ const MyCart = () => {
     if (error) {
       Alert.alert(`Error code: ${error.code}`, error.message);
     } else {
+      dispatch(createOrder());
       Alert.alert('Success', 'Your payment is confirmed!', [], {
         onDismiss: () => console.warn('later'),
       });
@@ -81,6 +92,10 @@ const MyCart = () => {
   };
 
   const checkOut = () => {
+    if (!postal_code || !country || !city || !street || !street_number) {
+      Alert.alert('Ошибка', 'Пожалуйста введите адрес доставки.');
+      return;
+    }
     dispatch(createPaymentIntent(total));
   };
 
@@ -343,6 +358,8 @@ const MyCart = () => {
               Адрес доставки
             </Text>
             <TouchableOpacity
+              // @ts-ignore
+              onPress={() => navigation.navigate('Shipping')}
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -374,28 +391,58 @@ const MyCart = () => {
                     }}
                   />
                 </View>
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: '#000',
-                      fontWeight: '500',
-                    }}
-                  >
-                    Березовая 11
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      color: '#000',
-                      fontWeight: '400',
-                      lineHeight: 20,
-                      opacity: 0.5,
-                    }}
-                  >
-                    443080 Самара
-                  </Text>
-                </View>
+                {!city ||
+                !country ||
+                !postal_code ||
+                !street ||
+                !street_number ? (
+                  <View className="items-center">
+                    <Text
+                      className="text-[#555] text-[14px]"
+                      style={{ fontFamily: 'Raleway-Regular' }}
+                    >
+                      Введите адрес доставки
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={{ flex: 1 }} className="justify-center ">
+                    <Text
+                      style={{
+                        fontFamily: 'Raleway-Regular',
+                        fontSize: 14,
+                        color: '#000',
+                        fontWeight: '500',
+                      }}
+                    >
+                      {street} {street_number}
+                    </Text>
+                    <View className="flex-row items-center gap-1">
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          color: '#000',
+                          fontWeight: '400',
+                          lineHeight: 20,
+                          opacity: 0.5,
+                        }}
+                      >
+                        {postal_code}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: 'Raleway-Regular',
+                          fontSize: 12,
+                          color: '#000',
+                          fontWeight: '400',
+                          lineHeight: 20,
+                          opacity: 0.5,
+                        }}
+                      >
+                        {city}
+                      </Text>
+                    </View>
+                  </View>
+                )}
               </View>
               <MaterialCommunityIcons
                 name="chevron-right"
@@ -549,7 +596,7 @@ const MyCart = () => {
                   opacity: 0.5,
                 }}
               >
-                Доставка
+                Налоги
               </Text>
               <Text
                 style={{

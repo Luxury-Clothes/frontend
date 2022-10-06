@@ -54,7 +54,11 @@ const LeftDrawerContent = () => {
               Корзина
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className="flex-row items-center">
+          <TouchableOpacity
+            // @ts-ignore
+            onPress={() => navigation.navigate('Orders')}
+            className="flex-row items-center"
+          >
             <SimpleLineIcons name="bag" size={16} color="gray" />
             <Text
               className="ml-2 text-gray-700 text-[16px]"
