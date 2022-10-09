@@ -41,9 +41,9 @@ export const createOrder = createAsyncThunk(
         city: cart?.city,
         payment_method: 'Stripe',
         items_price: cart?.subtotal,
-        shipping_price: 500,
-        tax_price: cart?.subtotal * 0.02,
-        total_price: cart?.subtotal + 500 + cart?.subtotal / 50,
+        shipping_price: 0,
+        tax_price: 0,
+        total_price: cart?.subtotal,
         products: cart?.cartItems.map((i) => ({
           id: i.id,
           quantity: i.quantity,

@@ -7,16 +7,17 @@ import {
   MaterialIcons,
   AntDesign,
 } from '@expo/vector-icons';
-import { Avatar } from '@rneui/base';
 import { useNavigation } from '@react-navigation/native';
 
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { logout } from '../features/auth/auth';
 
 const LeftDrawerContent = () => {
   const navigation = useNavigation();
 
   const dispatch = useAppDispatch();
+
+  const { user } = useAppSelector((state) => state.auth);
 
   const onLogout = () => {
     dispatch(logout());
@@ -27,20 +28,16 @@ const LeftDrawerContent = () => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView style={{ marginTop: 20 }}>
         <View className="gap-4 pt-8 pl-8">
-          {/* {user && (
+          {user && (
             <TouchableOpacity className="flex-row items-center">
-              <Avatar
-                size={36}
-                title={user?.username[0]}
-                rounded
-                containerStyle={{
-                  backgroundColor: '#e2e8f0',
-                  marginRight: 10,
-                }}
-              />
-              <Text>{user.username}</Text>
+              <Text
+                className=" text-gray-700 text-[16px]"
+                style={{ fontFamily: 'Raleway-Regular' }}
+              >
+                Здравствуйте, {user.username}
+              </Text>
             </TouchableOpacity>
-          )} */}
+          )}
           <TouchableOpacity
             className="flex-row items-center"
             // @ts-ignore

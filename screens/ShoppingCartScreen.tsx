@@ -87,7 +87,7 @@ const MyCart = () => {
       dispatch(clearCart());
       dispatch(clearProductsInCart());
       // @ts-ignore
-      navigation.navigate('Products');
+      navigation.goBack();
     }
   };
 
@@ -177,7 +177,7 @@ const MyCart = () => {
                   : product.price}{' '}
                 руб.
               </Text>
-              <Text>
+              {/* <Text>
                 (~
                 {product.price + 50 > 1000
                   ? `${Math.floor((product.price + 50) / 1000)} ${
@@ -187,7 +187,7 @@ const MyCart = () => {
                     }`
                   : product.price}{' '}
                 руб.)
-              </Text>
+              </Text> */}
             </View>
           </View>
           <View
@@ -549,7 +549,7 @@ const MyCart = () => {
             >
               Информация о заказе
             </Text>
-            <View
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -578,8 +578,8 @@ const MyCart = () => {
               >
                 {subtotal}.00 руб.
               </Text>
-            </View>
-            <View
+            </View> */}
+            {/* <View
               style={{
                 flexDirection: 'row',
                 alignItems: 'center',
@@ -608,7 +608,7 @@ const MyCart = () => {
               >
                 {tax} руб.
               </Text>
-            </View>
+            </View> */}
             <View
               style={{
                 flexDirection: 'row',

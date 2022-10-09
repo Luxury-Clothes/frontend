@@ -159,7 +159,7 @@ export const cartSlice = createSlice({
       state.subtotal = state.cartItems.reduce((total, product) => {
         return (total = total + product.price * product.quantity);
       }, 0);
-      state.tax = state.subtotal / 50;
+      // state.tax = state.subtotal / 50;
       state.total = state.subtotal + state.tax;
     },
     removeProduct: (state, action: PayloadAction<IProduct>) => {
@@ -169,7 +169,7 @@ export const cartSlice = createSlice({
       state.subtotal = state.cartItems.reduce((total, product) => {
         return (total = total + product.price * product.quantity);
       }, 0);
-      state.tax = state.subtotal / 50;
+      // state.tax = state.subtotal / 50;
       state.total = state.subtotal + state.tax;
     },
     incrementProduct: (state, action: PayloadAction<IProduct>) => {
@@ -181,7 +181,7 @@ export const cartSlice = createSlice({
       state.subtotal = state.cartItems.reduce((total, product) => {
         return (total = total + product.price * product.quantity);
       }, 0);
-      state.tax = state.subtotal / 50;
+      // state.tax = state.subtotal / 50;
       state.total = state.subtotal + state.tax;
     },
     decrementProduct: (state, action: PayloadAction<IProduct>) => {
@@ -193,7 +193,7 @@ export const cartSlice = createSlice({
       state.subtotal = state.cartItems.reduce((total, product) => {
         return (total = total + product.price * product.quantity);
       }, 0);
-      state.tax = state.subtotal / 50;
+      // state.tax = state.subtotal / 50;
       state.total = state.subtotal + state.tax;
     },
     clearCart: (state) => {
@@ -230,7 +230,7 @@ export const cartSlice = createSlice({
         state.subtotal = state.cartItems.reduce((total, product) => {
           return (total = total + product.price * product.quantity);
         }, 0);
-        state.tax = state.subtotal / 50;
+        // state.tax = state.subtotal / 50;
         state.total = state.subtotal + state.tax;
       });
     // .addCase(createPaymentIntent.rejected, (state, action: any) => {});
