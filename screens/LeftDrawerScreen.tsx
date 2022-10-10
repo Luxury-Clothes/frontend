@@ -13,6 +13,9 @@ import ProductsScreen from './ProductsScreen';
 import FavouritesScreen from './FavouritesScreen';
 import ShippingAddressScreen from './ShippingAddressScreen';
 import OrdersScreen from './OrdersScreen';
+import ContactUsScreen from './ContactUsScreen';
+import SendMessageScreen from './SendMessageScreen';
+import HistoryScreen from './HistoryScreen';
 
 import { LeftDrawerContent, Header } from '../components';
 import { init } from '../features/auth/auth';
@@ -30,8 +33,8 @@ const LeftDrawerScreen = () => {
 
   return (
     <LeftDrawer.Navigator
-      backBehavior="history"
-      id="LeftDrawer"
+      backBehavior='history'
+      id='LeftDrawer'
       screenOptions={{
         drawerStyle: {
           width: '100%',
@@ -42,14 +45,14 @@ const LeftDrawerScreen = () => {
       initialRouteName={initialRouteName}
     >
       <LeftDrawer.Screen
-        name="Login"
+        name='Login'
         options={{
           header: () => <Header />,
         }}
         component={LoginScreen}
       />
       <LeftDrawer.Screen
-        name="Register"
+        name='Register'
         options={{
           header: () => <Header />,
         }}
@@ -59,50 +62,71 @@ const LeftDrawerScreen = () => {
         options={{
           header: () => <Header />,
         }}
-        name="Home"
+        name='Home'
         component={HomeScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="Products"
+        name='Products'
         component={ProductsScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="Details"
+        name='Details'
         component={DetailsScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="ShoppingCart"
+        name='ShoppingCart'
         component={ShoppingCartScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="Favourites"
+        name='Favourites'
         component={FavouritesScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="Shipping"
+        name='Shipping'
         component={ShippingAddressScreen}
       />
       <LeftDrawer.Screen
         options={{
           header: () => <Header />,
         }}
-        name="Orders"
+        name='Orders'
         component={OrdersScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='ContactUs'
+        component={ContactUsScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='SendMessage'
+        component={SendMessageScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='History'
+        component={HistoryScreen}
       />
     </LeftDrawer.Navigator>
   );
