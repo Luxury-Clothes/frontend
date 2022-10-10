@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
-import { Ionicons, Feather, AntDesign, FontAwesome } from "@expo/vector-icons";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { View, Text, TouchableOpacity, Image, TextInput } from 'react-native';
+import { Ionicons, Feather, AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   setSearchTerm,
   setIsFilterOpen,
@@ -23,7 +23,7 @@ const Header = () => {
   );
 
   return (
-    <View style={{ backgroundColor: 'white' }}>
+    <View className='gap-2' style={{ backgroundColor: 'white' }}>
       <View
         style={{
           height: 100,
@@ -37,7 +37,8 @@ const Header = () => {
           onPress={() => {
             route.name === 'Details' ||
             route.name === 'ShoppingCart' ||
-            route.name === 'Shipping'
+            route.name === 'Shipping' ||
+            route.name === 'SendMessage'
               ? // @ts-ignore
                 navigation.goBack()
               : // @ts-ignore
@@ -51,15 +52,17 @@ const Header = () => {
         >
           {route.name === 'Details' ||
           route.name === 'ShoppingCart' ||
-          route.name === 'Shipping' ? (
-            <AntDesign name="arrowleft" size={28} color="gray" />
+          route.name === 'Shipping' ||
+          route.name === 'SendMessage' ? (
+            <AntDesign name='arrowleft' size={28} color='gray' />
           ) : (
-            <Ionicons name="menu-outline" size={28} color="gray" />
+            <Ionicons name='menu-outline' size={28} color='gray' />
           )}
           <Text style={{ fontSize: 12, fontFamily: 'Raleway-Regular' }}>
             {route.name === 'Details' ||
             route.name === 'ShoppingCart' ||
-            'Shipping'
+            route.name === 'Shipping' ||
+            route.name === 'SendMessage'
               ? 'Назад'
               : 'Menu'}
           </Text>
@@ -85,13 +88,19 @@ const Header = () => {
           }
           style={{ marginLeft: 'auto' }}
         >
-          <Feather name="user" size={24} color="gray" />
+          <Feather name='user' size={24} color='gray' />
         </TouchableOpacity>
       </View>
-      <View className="w-full h-[1px] bg-gray-200 my-2"></View>
-      {!['Login', 'Register', 'ShoppingCart', 'Details', 'Shipping'].includes(
-        route.name
-      ) && (
+      <View className='w-full h-[1px] bg-gray-200'></View>
+      {![
+        'Login',
+        'Register',
+        'ShoppingCart',
+        'Details',
+        'Shipping',
+        'ContactUs',
+        'SendMessage',
+      ].includes(route.name) && (
         <View
           style={{
             height: 40,
@@ -103,11 +112,11 @@ const Header = () => {
         >
           <View
             style={{ borderRadius: 4 }}
-            className="flex-row w-[90%] h-full pl-2 items-center bg-gray-100/90"
+            className='flex-row w-[90%] h-full pl-2 items-center bg-gray-100/90'
           >
-            <AntDesign name="search1" size={20} color="gray" />
+            <AntDesign name='search1' size={20} color='gray' />
             <TextInput
-              placeholder="Искать"
+              placeholder='Искать'
               style={{ fontFamily: 'Raleway-Regular' }}
               value={
                 route.name === 'Favourites' ? favouritesSearchTerm : searchTerm
@@ -117,7 +126,7 @@ const Header = () => {
                   ? dispatch(setFavouritesSearchTerm(text))
                   : dispatch(setSearchTerm(text));
               }}
-              className="ml-2 font-semibold text-[16px] flex-1"
+              className='ml-2 font-semibold text-[16px] flex-1'
             />
           </View>
           <TouchableOpacity
@@ -126,7 +135,7 @@ const Header = () => {
             }}
             style={{ marginLeft: 'auto' }}
           >
-            <FontAwesome name="sort-alpha-asc" size={20} color="#666" />
+            <FontAwesome name='sort-alpha-asc' size={20} color='#666' />
             {/* <Ionicons name="filter-outline" size={24} color="gray" /> */}
           </TouchableOpacity>
         </View>
