@@ -5,10 +5,12 @@ import { IOrder } from '../../types';
 
 interface IState {
   orders: IOrder[];
+  selectedOrder: IOrder | null;
 }
 
 const initialState: IState = {
   orders: [],
+  selectedOrder: null,
 };
 
 export const getOrders = createAsyncThunk(
@@ -61,7 +63,11 @@ export const createOrder = createAsyncThunk(
 export const ordersSlice = createSlice({
   name: 'orders',
   initialState,
-  reducers: {},
+  reducers: {
+    setSelectedOrder: (state, action: PayloadAction<IOrder>) => {
+      state.selectedOrder = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
@@ -78,5 +84,7 @@ export const ordersSlice = createSlice({
       );
   },
 });
+
+export const { setSelectedOrder } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

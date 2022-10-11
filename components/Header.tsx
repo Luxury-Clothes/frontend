@@ -4,6 +4,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
+  setMessage,
+  setSelectedMessage,
+  setSelectedSubject,
+} from '../features/messages/messages';
+import { sendMessage } from '../features/messages/messages';
+import {
   setSearchTerm,
   setIsFilterOpen,
   setFavouritesSearchTerm,
@@ -17,6 +23,10 @@ const Header = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
+
+  const { message, selectedSubject, selectedMessage } = useAppSelector(
+    (state) => state.messages
+  );
 
   const { searchTerm, favouritesSearchTerm } = useAppSelector(
     (state) => state.products
@@ -35,14 +45,28 @@ const Header = () => {
       >
         <TouchableOpacity
           onPress={() => {
-            route.name === 'Details' ||
-            route.name === 'ShoppingCart' ||
-            route.name === 'Shipping' ||
-            route.name === 'SendMessage'
-              ? // @ts-ignore
-                navigation.goBack()
-              : // @ts-ignore
-                navigation.getParent('LeftDrawer').openDrawer();
+            if (route.name === 'SendMessage' && !selectedMessage) {
+              dispatch(
+                sendMessage({
+                  message,
+                  subject: selectedSubject,
+                  is_send: false,
+                })
+              );
+              dispatch(setMessage(''));
+              dispatch(setSelectedSubject(''));
+              navigation.goBack();
+              return;
+            } else {
+              route.name === 'Details' ||
+              route.name === 'ShoppingCart' ||
+              route.name === 'Shipping' ||
+              route.name === 'SendMessage'
+                ? // @ts-ignore
+                  navigation.goBack()
+                : // @ts-ignore
+                  navigation.getParent('LeftDrawer').openDrawer();
+            }
           }}
           style={{
             justifyContent: 'center',

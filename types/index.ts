@@ -54,3 +54,13 @@ export interface IPayment {
   update_time: string;
   email_address: string;
 }
+
+export interface IMessage {
+  id: string;
+  user_id: string;
+  subject: string;
+  message: string;
+  is_send: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
