@@ -16,10 +16,20 @@ import {
 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { useAppDispatch } from '../app/hooks';
+import {
+  setSelectedSubject,
+  setIsEditable,
+  resetMessage,
+} from '../features/messages/messages';
+
 const width = Dimensions.get('screen').width / 2;
 
 const ContactUsScreen = () => {
   const navigation = useNavigation();
+
+  const dispatch = useAppDispatch();
+
   return (
     <ScrollView
       style={{
@@ -30,8 +40,13 @@ const ContactUsScreen = () => {
     >
       <View className='flex-row bg-white h-[200px]'>
         <TouchableOpacity
-          // @ts-ignore
-          onPress={() => navigation.navigate('SendMessage')}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Вопрос по заказу'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           style={{ width }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
@@ -44,6 +59,13 @@ const ContactUsScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Доставка товара'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
@@ -58,6 +80,13 @@ const ContactUsScreen = () => {
       </View>
       <View className='flex-row justify-center gap-[0px]  bg-white  h-[200px]'>
         <TouchableOpacity
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Возврат Товара и Средств'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           style={{ width }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
@@ -70,6 +99,13 @@ const ContactUsScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Оплата & Промо-коды'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
@@ -83,6 +119,13 @@ const ContactUsScreen = () => {
       <View className='flex-row justify-center gap-[0px]  bg-white  h-[200px]'>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Наличие товара'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
@@ -92,6 +135,13 @@ const ContactUsScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Аккаунт'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
@@ -103,6 +153,13 @@ const ContactUsScreen = () => {
       <View className='flex-row justify-center gap-[0px]  bg-white  h-[200px]'>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Юридическая информация'));
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
@@ -114,6 +171,15 @@ const ContactUsScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(
+              setSelectedSubject('СМИ/Корпоративная социальная ответственность')
+            );
+            dispatch(setIsEditable(false));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center px-5'>
@@ -131,6 +197,13 @@ const ContactUsScreen = () => {
       <View className='flex-row mb-10 bg-white  h-[200px]'>
         <TouchableOpacity
           style={{ width }}
+          onPress={() => {
+            // @ts-ignore
+            navigation.navigate('SendMessage');
+            dispatch(setSelectedSubject('Другое'));
+            dispatch(setIsEditable(true));
+            dispatch(resetMessage());
+          }}
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
