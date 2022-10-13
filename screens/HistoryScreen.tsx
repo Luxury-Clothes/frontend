@@ -49,43 +49,45 @@ const HistoryScreen = () => {
                 navigation.navigate('SendMessage');
                 dispatch(setSelectedMessage(item));
               }}
-              className='w-full py-4 px-8'
+              className={`w-full py-4 px-6 ${
+                !item.is_send && 'bg-gray-100/70'
+              }`}
             >
-              <View className='flex-row gap-4 items-center'>
-                <View className='p-2 rounded-full bg-[#333] items-center justify-center'>
+              <View className='flex-row gap-4'>
+                <View className='rounded-full flex items-center justify-center'>
                   {item.subject === 'Вопрос по заказу' ? (
                     <Ionicons
                       name='document-text-outline'
-                      size={20}
-                      color='white'
+                      size={32}
+                      color='#333'
                     />
                   ) : item.subject === 'Доставка товара' ? (
                     <MaterialCommunityIcons
                       name='truck-delivery-outline'
-                      size={20}
-                      color='white'
+                      size={32}
+                      color='#333'
                     />
                   ) : item.subject === 'Возврат Товара и Средств' ? (
                     <MaterialIcons
                       name='assignment-return'
-                      size={20}
-                      color='white'
+                      size={32}
+                      color='#333'
                     />
                   ) : item.subject === 'Оплата & Промо-коды' ? (
                     <SimpleLineIcons
                       name='credit-card'
-                      size={20}
-                      color='white'
+                      size={32}
+                      color='#333'
                     />
                   ) : item.subject === 'Наличие товара' ? (
-                    <Ionicons name='shirt-outline' size={20} color='white' />
+                    <Ionicons name='shirt-outline' size={32} color='#333' />
                   ) : item.subject === 'Аккаунт' ? (
-                    <Feather name='user' size={20} color='white' />
+                    <Feather name='user' size={32} color='#333' />
                   ) : item.subject === 'Юридическая информация' ? (
-                    <FontAwesome5 name='user-tie' size={20} color='white' />
+                    <FontAwesome5 name='user-tie' size={32} color='#333' />
                   ) : item.subject ===
                     'СМИ/Корпоративная социальная ответственность' ? (
-                    <Foundation name='play-video' size={20} color='white' />
+                    <Foundation name='play-video' size={32} color='#333' />
                   ) : (
                     <MaterialCommunityIcons
                       name='dots-horizontal-circle-outline'
@@ -94,15 +96,37 @@ const HistoryScreen = () => {
                     />
                   )}
                 </View>
-                <Text
-                  numberOfLines={1}
-                  ellipsizeMode='tail'
-                  className='font-semibold text-[24px]'
-                >
-                  {item.subject}
-                </Text>
+                <View className='flex justify-evenly gap-1 grow'>
+                  <View className='flex-row justify-between'>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode='tail'
+                      className='font-semibold text-[16px]'
+                    >
+                      {item.subject}
+                    </Text>
+                    <Text>
+                      {formatRelative(new Date(item.updated_at), new Date(), {
+                        locale: ru,
+                      })}
+                    </Text>
+                  </View>
+                  <View className='justify-between'>
+                    <Text
+                      numberOfLines={2}
+                      ellipsizeMode='tail'
+                      style={{ fontFamily: 'Raleway-Light' }}
+                      className='text-gray-600 inline font-light text-[18px]'
+                    >
+                      {item.message}
+                    </Text>
+                    {/* <Text className='text-sm inline float-left'>
+                      {item.is_send ? 'Отправлено' : 'Черновик'}
+                    </Text> */}
+                  </View>
+                </View>
               </View>
-              <View style={{ marginTop: 5 }} className='gap-2'>
+              {/* <View style={{ marginTop: 5 }} className='gap-2'>
                 <Text
                   numberOfLines={3}
                   ellipsizeMode='tail'
@@ -119,7 +143,7 @@ const HistoryScreen = () => {
                     })}
                   </Text>
                 </View>
-              </View>
+              </View> */}
             </TouchableOpacity>
           )}
         />
