@@ -4,6 +4,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
 } from 'react-native';
 import { useEffect } from 'react';
 import {
@@ -21,6 +22,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { getMessages, setSelectedMessage } from '../features/messages/messages';
+
+const width = Dimensions.get('screen').width;
 
 const HistoryScreen = () => {
   const dispatch = useAppDispatch();
@@ -42,22 +45,29 @@ const HistoryScreen = () => {
           keyExtractor={(item) => item.id}
           data={messages}
           ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
                 // @ts-ignore
                 navigation.navigate('SendMessage');
                 dispatch(setSelectedMessage(item));
               }}
-              className={`w-full py-4 px-6 ${
-                !item.is_send && 'bg-gray-100/70'
-              }`}
+              style={{
+                width,
+              }}
+              className={`py-4 px-6 border-gray-200 ${
+                index === 0
+                  ? 'border-t'
+                  : index === messages.length - 1
+                  ? 'border-b'
+                  : 'border'
+              }  ${!item.is_send && 'bg-gray-100/70'}`}
             >
-              <View className='flex-row gap-4'>
-                <View className='rounded-full flex items-center justify-center'>
+              <View className='flex-row items-center  gap-4'>
+                <View className='rounded-full p-3 flex items-center justify-center border border-gray-200'>
                   {item.subject === 'Вопрос по заказу' ? (
-                    <Ionicons
-                      name='document-text-outline'
+                    <MaterialCommunityIcons
+                      name='file-document-outline'
                       size={32}
                       color='#333'
                     />
@@ -96,12 +106,12 @@ const HistoryScreen = () => {
                     />
                   )}
                 </View>
-                <View className='flex justify-evenly gap-1 grow'>
+                <View className='flex justify-evenly w-4/5 gap-1'>
                   <View className='flex-row justify-between'>
                     <Text
                       numberOfLines={1}
                       ellipsizeMode='tail'
-                      className='font-semibold text-[16px]'
+                      className='w-[60%] font-semibold text-[16px]'
                     >
                       {item.subject}
                     </Text>
@@ -116,7 +126,7 @@ const HistoryScreen = () => {
                       numberOfLines={2}
                       ellipsizeMode='tail'
                       style={{ fontFamily: 'Raleway-Light' }}
-                      className='text-gray-600 inline font-light text-[18px]'
+                      className='text-gray-600  font-light text-[18px]'
                     >
                       {item.message}
                     </Text>
