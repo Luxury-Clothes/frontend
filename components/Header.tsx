@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   setMessage,
-  setSelectedMessage,
+  updateMessage,
   setSelectedSubject,
 } from '../features/messages/messages';
 import { sendMessage } from '../features/messages/messages';
@@ -57,6 +57,22 @@ const Header = () => {
               dispatch(setSelectedSubject(''));
               navigation.goBack();
               return;
+            } else if (
+              route.name === 'SendMessage' &&
+              selectedMessage &&
+              !selectedMessage.is_send
+            ) {
+              dispatch(
+                updateMessage({
+                  message,
+                  subject: selectedSubject,
+                  is_send: false,
+                  id: selectedMessage.id,
+                })
+              );
+              dispatch(setMessage(''));
+              dispatch(setSelectedSubject(''));
+              navigation.goBack();
             } else {
               route.name === 'Details' ||
               route.name === 'ShoppingCart' ||

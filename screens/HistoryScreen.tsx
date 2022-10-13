@@ -21,7 +21,11 @@ import { ru } from 'date-fns/locale';
 import { useNavigation } from '@react-navigation/native';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
-import { getMessages, setSelectedMessage } from '../features/messages/messages';
+import {
+  getMessages,
+  setSelectedMessage,
+  setIsEditable,
+} from '../features/messages/messages';
 
 const width = Dimensions.get('screen').width;
 
@@ -51,17 +55,30 @@ const HistoryScreen = () => {
                 // @ts-ignore
                 navigation.navigate('SendMessage');
                 dispatch(setSelectedMessage(item));
+                dispatch(
+                  setIsEditable(
+                    ![
+                      'Вопрос по заказу',
+                      'Доставка товара',
+                      'Возврат Товара и Средств',
+                      'Оплата & Промо-коды',
+                      'Наличие товара',
+                      'Аккаунт',
+                      'Юридическая информация',
+                      'СМИ/Корпоративная социальная ответственность',
+                    ].includes(item.subject)
+                  )
+                );
               }}
               style={{
                 width,
               }}
               className={`py-4 px-6 border-gray-200 ${
-                index === 0
-                  ? 'border-t'
-                  : index === messages.length - 1
-                  ? 'border-b'
-                  : 'border'
-              }  ${!item.is_send && 'bg-gray-100/70'}`}
+                index === 0 ? 'border' : 'border-b'
+                // : index === messages.length - 1
+                // ? 'border-b'
+                // : 'border'
+              }  `}
             >
               <View className='flex-row items-center  gap-4'>
                 <View className='rounded-full p-3 flex items-center justify-center border border-gray-200'>
@@ -106,33 +123,33 @@ const HistoryScreen = () => {
                     />
                   )}
                 </View>
-                <View className='flex justify-evenly w-4/5 gap-1'>
-                  <View className='flex-row justify-between'>
+                <View className='flex justify-evenly w-4/5 overflow-hidden gap-1'>
+                  <View className='flex-row'>
                     <Text
                       numberOfLines={1}
                       ellipsizeMode='tail'
-                      className='w-[60%] font-semibold text-[16px]'
+                      className='font-semibold text-[16px] mr-2 max-w-[50%]'
                     >
                       {item.subject}
+                    </Text>
+                    <Text
+                      numberOfLines={1}
+                      ellipsizeMode='tail'
+                      style={{ fontFamily: 'Raleway-Light' }}
+                      className='text-gray-600 w-auto  font-light text-[16px]'
+                    >
+                      {item.message}
+                    </Text>
+                  </View>
+                  <View className='flex-row justify-between'>
+                    <Text className='text-sm inline float-left'>
+                      {item.is_send ? 'Отправлено' : 'Черновик'}
                     </Text>
                     <Text>
                       {formatRelative(new Date(item.updated_at), new Date(), {
                         locale: ru,
                       })}
                     </Text>
-                  </View>
-                  <View className='justify-between'>
-                    <Text
-                      numberOfLines={2}
-                      ellipsizeMode='tail'
-                      style={{ fontFamily: 'Raleway-Light' }}
-                      className='text-gray-600  font-light text-[18px]'
-                    >
-                      {item.message}
-                    </Text>
-                    {/* <Text className='text-sm inline float-left'>
-                      {item.is_send ? 'Отправлено' : 'Черновик'}
-                    </Text> */}
                   </View>
                 </View>
               </View>
