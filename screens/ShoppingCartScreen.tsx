@@ -35,8 +35,7 @@ const MyCart = () => {
   const {
     cartItems,
     total,
-    subtotal,
-    tax,
+
     clientSecret,
     city,
     country,
@@ -60,7 +59,7 @@ const MyCart = () => {
     });
     // console.log('success');
     if (error) {
-      Alert.alert('error');
+      Alert.alert('Ошибка');
     }
   };
 
@@ -78,10 +77,10 @@ const MyCart = () => {
     const { error } = await presentPaymentSheet();
 
     if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
+      Alert.alert(`Код ошибки: ${error.code}`, error.message);
     } else {
       dispatch(createOrder());
-      Alert.alert('Success', 'Your payment is confirmed!', [], {
+      Alert.alert('Успех', 'Ваш заказ успешно оплачен', [], {
         onDismiss: () => console.warn('later'),
       });
       dispatch(clearCart());
@@ -123,7 +122,7 @@ const MyCart = () => {
             borderRadius: 10,
             marginRight: 22,
           }}
-          className="bg-gray-200/60"
+          className='bg-gray-200/60'
         >
           <Image
             source={{ uri: product.image }}
@@ -221,7 +220,7 @@ const MyCart = () => {
                 }}
               >
                 <MaterialCommunityIcons
-                  name="minus"
+                  name='minus'
                   style={{
                     fontSize: 16,
                     color: '#777',
@@ -245,7 +244,7 @@ const MyCart = () => {
                 }}
               >
                 <MaterialCommunityIcons
-                  name="plus"
+                  name='plus'
                   style={{
                     fontSize: 16,
                     color: '#777',
@@ -260,7 +259,7 @@ const MyCart = () => {
               }}
             >
               <MaterialCommunityIcons
-                name="delete-outline"
+                name='delete-outline'
                 style={{
                   fontSize: 16,
                   color: '#777',
@@ -384,7 +383,7 @@ const MyCart = () => {
                   }}
                 >
                   <MaterialCommunityIcons
-                    name="truck-delivery-outline"
+                    name='truck-delivery-outline'
                     style={{
                       fontSize: 18,
                       color: '#333',
@@ -396,16 +395,16 @@ const MyCart = () => {
                 !postal_code ||
                 !street ||
                 !street_number ? (
-                  <View className="items-center">
+                  <View className='items-center'>
                     <Text
-                      className="text-[#555] text-[14px]"
+                      className='text-[#555] text-[14px]'
                       style={{ fontFamily: 'Raleway-Regular' }}
                     >
                       Введите адрес доставки
                     </Text>
                   </View>
                 ) : (
-                  <View style={{ flex: 1 }} className="justify-center ">
+                  <View style={{ flex: 1 }} className='justify-center '>
                     <Text
                       style={{
                         fontFamily: 'Raleway-Regular',
@@ -416,7 +415,7 @@ const MyCart = () => {
                     >
                       {street} {street_number}
                     </Text>
-                    <View className="flex-row items-center gap-1">
+                    <View className='flex-row items-center gap-1'>
                       <Text
                         style={{
                           fontSize: 12,
@@ -445,7 +444,7 @@ const MyCart = () => {
                 )}
               </View>
               <MaterialCommunityIcons
-                name="chevron-right"
+                name='chevron-right'
                 style={{ fontSize: 22, color: '#000' }}
               />
             </TouchableOpacity>
@@ -641,7 +640,7 @@ const MyCart = () => {
         </View>
         <TouchableOpacity
           onPress={() => (total != 0 ? checkOut() : null)}
-          className="mx-4 bg-[#333] justify-center items-center  mb-10 p-4 mt-4"
+          className='mx-4 bg-[#333] justify-center items-center  mb-10 p-4 mt-4'
         >
           <Text
             style={{
