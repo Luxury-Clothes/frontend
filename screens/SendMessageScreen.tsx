@@ -52,7 +52,11 @@ const SendMessageScreen = () => {
         <View className='flex-row mb-8 px-4 items-center gap-4'>
           <TouchableOpacity
             disabled={
-              selectedMessage?.is_send ? selectedMessage?.is_send : false
+              message.length === 0
+                ? true
+                : selectedMessage?.is_send
+                ? selectedMessage?.is_send
+                : false
             }
             onPress={() => {
               if (!selectedMessage) {

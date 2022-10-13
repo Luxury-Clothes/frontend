@@ -51,7 +51,11 @@ const ContactUsScreen = () => {
           className='h-[200px] border border-gray-200 justify-center items-center'
         >
           <View className='gap-4 items-center'>
-            <Ionicons name='document-text-outline' size={32} color='#333' />
+            <MaterialCommunityIcons
+              name='file-document-outline'
+              size={32}
+              color='#333'
+            />
             <Text style={{ fontFamily: 'Raleway-Light' }}>
               Вопросы по заказу
             </Text>
