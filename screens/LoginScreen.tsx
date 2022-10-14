@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, Keyboard, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
@@ -27,10 +27,10 @@ const LoginScreen = () => {
   const handleLogin = () => {
     Keyboard.dismiss();
     dispatch(login(inputs));
-    setInputs({
-      email: '',
-      password: '',
-    });
+    // setInputs({
+    //   email: '',
+    //   password: '',
+    // });
   };
 
   const handleOnchange = (text: string, input: string) => {
@@ -39,7 +39,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <StatusBar style="dark" />
+      <StatusBar style='dark' />
       <Loader visible={loading} />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -62,9 +62,9 @@ const LoginScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'email' }))
             }
-            iconName="email-outline"
-            label="E-mail"
-            placeholder="Ваш e-mail адрес"
+            iconName='email-outline'
+            label='E-mail'
+            placeholder='Ваш e-mail адрес'
             error={errors.email}
           />
           <Input
@@ -73,14 +73,14 @@ const LoginScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'password' }))
             }
-            iconName="lock-outline"
-            label="Пароль"
-            placeholder="Ваш пароль"
+            iconName='lock-outline'
+            label='Пароль'
+            placeholder='Ваш пароль'
             error={errors.password}
             password
           />
 
-          <Button title="Войти" onPress={handleLogin} />
+          <Button title='Войти' onPress={handleLogin} />
           <Text
             // @ts-ignore
             onPress={() => navigation.navigate('Register')}
