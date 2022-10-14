@@ -16,6 +16,7 @@ import OrdersScreen from './OrdersScreen';
 import ContactUsScreen from './ContactUsScreen';
 import SendMessageScreen from './SendMessageScreen';
 import HistoryScreen from './HistoryScreen';
+import OrderScreen from './OrderScreen';
 
 import { LeftDrawerContent, Header } from '../components';
 import { init } from '../features/auth/auth';
@@ -127,6 +128,13 @@ const LeftDrawerScreen = () => {
         }}
         name='History'
         component={HistoryScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='Order'
+        component={OrderScreen}
       />
     </LeftDrawer.Navigator>
   );

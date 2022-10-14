@@ -1,8 +1,9 @@
 import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { getOrders } from '../features/orders/orders';
+import { getOrders, setSelectedOrder } from '../features/orders/orders';
 
 const OrdersScreen = () => {
   const dispatch = useAppDispatch();
@@ -11,9 +12,9 @@ const OrdersScreen = () => {
     dispatch(getOrders());
   }, []);
 
-  const { orders } = useAppSelector((state) => state.orders);
+  const navigation = useNavigation();
 
-  // console.log(orders);
+  const { orders } = useAppSelector((state) => state.orders);
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20 }}>
@@ -27,7 +28,11 @@ const OrdersScreen = () => {
           <TouchableOpacity
             activeOpacity={0.5}
             className='border border-gray-100 rounded-[10px]'
-            // onPress={() => console.log('hello')}
+            onPress={() => {
+              dispatch(setSelectedOrder(item));
+              // @ts-ignore
+              navigation.navigate('Order');
+            }}
           >
             <View
               style={{
