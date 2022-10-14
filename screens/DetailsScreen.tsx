@@ -77,7 +77,8 @@ const DetailsScreen = () => {
         >
           <FlatList
             data={
-              product?.images?.length !== 0 ? product?.images : [product?.image]
+              [product?.image]
+              // product?.images?.length !== 0 ? product?.images : [product?.image]
             }
             horizontal
             renderItem={renderProduct}
@@ -90,7 +91,7 @@ const DetailsScreen = () => {
               { useNativeDriver: false }
             )}
           />
-          <View className="bg-gray-200 text-[#333] p-2 absolute top-5 right-5">
+          <View className='bg-gray-200 text-[#333] p-2 absolute top-5 right-5'>
             <Text>
               {product.price > 1000
                 ? `${Math.floor(product.price / 1000)} ${product.price % 1000}`
@@ -132,30 +133,30 @@ const DetailsScreen = () => {
               : null}
           </View>
         </View>
-        <View className="w-full p-4 gap-4 flex-row justify-center items-center">
-          <TouchableOpacity className="w-4 h-4 bg-purple-200"></TouchableOpacity>
-          <TouchableOpacity className="relative">
-            <View className="w-4 h-4 bg-orange-100 outline-2 outline-offset-1"></View>
-            <View className="absolute w-6 h-6 border-gray-200 border-2 -top-1 -left-1 ]"></View>
+        <View className='w-full p-4 gap-4 flex-row justify-center items-center'>
+          <TouchableOpacity className='w-4 h-4 bg-purple-200'></TouchableOpacity>
+          <TouchableOpacity className='relative'>
+            <View className='w-4 h-4 bg-orange-100 outline-2 outline-offset-1'></View>
+            <View className='absolute w-6 h-6 border-gray-200 border-2 -top-1 -left-1 ]'></View>
           </TouchableOpacity>
-          <TouchableOpacity className="w-4 h-4 bg-gray-500"></TouchableOpacity>
-          <TouchableOpacity className="w-4 h-4 bg-blue-200"></TouchableOpacity>
+          <TouchableOpacity className='w-4 h-4 bg-gray-500'></TouchableOpacity>
+          <TouchableOpacity className='w-4 h-4 bg-blue-200'></TouchableOpacity>
         </View>
-        <TouchableOpacity className="flex-row items-center justify-between mx-4 p-4 border border-gray-300">
+        <TouchableOpacity className='flex-row items-center justify-between mx-4 p-4 border border-gray-300'>
           <Text style={{ fontFamily: 'Raleway-Regular' }}>Выберите размер</Text>
-          <Entypo name="chevron-down" size={16} color="#666" />
+          <Entypo name='chevron-down' size={16} color='#666' />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => dispatch(toggleFavourite(product))}
-          className="mt-4 bg-[#333] p-2 ml-4 justify-center items-center w-12"
+          className='mt-4 bg-[#333] p-2 ml-4 justify-center items-center w-12'
         >
           {favourites.map((p) => p.id).includes(product.id) ? (
-            <AntDesign name="heart" size={24} color="white" />
+            <AntDesign name='heart' size={24} color='white' />
           ) : (
-            <AntDesign name="hearto" size={24} color="white" />
+            <AntDesign name='hearto' size={24} color='white' />
           )}
         </TouchableOpacity>
-        <TouchableOpacity className="flex-row items-center justify-center mx-4 p-4 border border-gray-300 mt-4">
+        <TouchableOpacity className='flex-row items-center justify-center mx-4 p-4 border border-gray-300 mt-4'>
           <Text style={{ fontFamily: 'Raleway-Regular' }}>
             Наличие в магазине
           </Text>
@@ -163,7 +164,7 @@ const DetailsScreen = () => {
         <TouchableOpacity
           onPress={addToCart}
           disabled={!user}
-          className="mx-4 bg-[#333] justify-center items-center p-4 mt-4"
+          className='mx-4 bg-[#333] justify-center items-center p-4 mt-4'
         >
           <Text
             style={{
@@ -175,11 +176,11 @@ const DetailsScreen = () => {
             Купить
           </Text>
         </TouchableOpacity>
-        <View className="mt-6 mx-4">
-          <Text className="uppercase tracking-[1px]  text-[#333]">New Now</Text>
-          <Text className="mt-4 text-black text-[16px]">{product.title}</Text>
+        <View className='mt-6 mx-4'>
+          <Text className='uppercase tracking-[1px]  text-[#333]'>New Now</Text>
+          <Text className='mt-4 text-black text-[16px]'>{product.title}</Text>
           <Text
-            className="mt-4"
+            className='mt-4'
             style={{
               fontSize: 14,
               lineHeight: 22,
@@ -191,12 +192,12 @@ const DetailsScreen = () => {
         </View>
         <View
           style={{ marginLeft: 0, marginTop: 1 }}
-          className="flex-row gap-4 items-center"
+          className='flex-row gap-4 items-center'
         >
           {product.tags.split(',').map((tag) => (
-            <View key={tag} className="p-2 bg-gray-200">
+            <View key={tag} className='p-2 bg-gray-200'>
               <Text
-                className="text-[#333]"
+                className='text-[#333]'
                 style={{ fontFamily: 'Raleway-Regular' }}
               >
                 {tag}

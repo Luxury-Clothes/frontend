@@ -77,7 +77,8 @@ const Header = () => {
               route.name === 'Details' ||
               route.name === 'ShoppingCart' ||
               route.name === 'Shipping' ||
-              route.name === 'SendMessage'
+              route.name === 'SendMessage' ||
+              route.name === 'Order'
                 ? // @ts-ignore
                   navigation.goBack()
                 : // @ts-ignore
@@ -93,7 +94,8 @@ const Header = () => {
           {route.name === 'Details' ||
           route.name === 'ShoppingCart' ||
           route.name === 'Shipping' ||
-          route.name === 'SendMessage' ? (
+          route.name === 'SendMessage' ||
+          route.name === 'Order' ? (
             <AntDesign name='arrowleft' size={28} color='gray' />
           ) : (
             <Ionicons name='menu-outline' size={28} color='gray' />
@@ -102,7 +104,8 @@ const Header = () => {
             {route.name === 'Details' ||
             route.name === 'ShoppingCart' ||
             route.name === 'Shipping' ||
-            route.name === 'SendMessage'
+            route.name === 'SendMessage' ||
+            route.name === 'Order'
               ? 'Назад'
               : 'Menu'}
           </Text>
