@@ -5,6 +5,21 @@ import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getOrders, setSelectedOrder } from '../features/orders/orders';
 
+export const months = [
+  'января',
+  'февраля',
+  'марта',
+  'апреля',
+  'мая',
+  'июня',
+  'июля',
+  'августа',
+  'сентября',
+  'октября',
+  'ноября',
+  'декабря',
+];
+
 const OrdersScreen = () => {
   const dispatch = useAppDispatch();
 
@@ -45,7 +60,8 @@ const OrdersScreen = () => {
               }}
             >
               <Text style={{ fontSize: 18, fontWeight: '700' }}>
-                Заказ от 14 октября
+                Заказ от {new Date(item.created_at).getUTCDate()}{' '}
+                {months[new Date(item.created_at).getMonth()]}
               </Text>
               <Text>
                 <Text style={{ fontSize: 18, fontWeight: '700' }}>

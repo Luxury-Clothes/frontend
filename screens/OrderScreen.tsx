@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { months } from './OrdersScreen';
 import { setSelectedProduct } from '../features/products/products';
 
 const OrderScreen = () => {
@@ -133,7 +134,8 @@ const OrderScreen = () => {
             marginBottom: 10,
           }}
         >
-          Заказ от 14 октября
+          Заказ от {new Date(selectedOrder.created_at).getUTCDate()}{' '}
+          {months[new Date(selectedOrder.created_at).getMonth()]}
         </Text>
         <View style={{ paddingHorizontal: 16 }}>
           {selectedOrder.products
