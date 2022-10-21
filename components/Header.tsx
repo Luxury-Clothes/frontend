@@ -127,7 +127,11 @@ const Header = () => {
               ? // @ts-ignore
                 navigation.getParent('RightDrawer').openDrawer()
               : // @ts-ignore
-                navigation.navigate('Login')
+                navigation.reset({
+                  index: 0,
+                  // @ts-ignore
+                  routes: [{ name: 'Login' }],
+                })
           }
           style={{ marginLeft: 'auto' }}
         >

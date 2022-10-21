@@ -1,4 +1,10 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import { useEffect } from 'react';
 
 import { Card } from '../components';
@@ -17,7 +23,7 @@ const FavouritesScreen = ({ navigation }: any) => {
   }, []);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className='flex-1 bg-white'>
       {favourites.length ? (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -31,10 +37,15 @@ const FavouritesScreen = ({ navigation }: any) => {
           )}
         />
       ) : (
-        <View className="flex-1 items-center justify-center">
-          <Text className="font-bold text-[20px] text-gray-500">
-            You have no favourite product yet!
+        <View className='flex-1 items-center justify-center'>
+          <Text className='font-bold text-[20px] text-gray-700'>
+            Страница пуста
           </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Products')}>
+            <Text className='text-[16px] mt-2 text-blue-500 underline'>
+              Начать покупки
+            </Text>
+          </TouchableOpacity>
         </View>
       )}
     </SafeAreaView>
