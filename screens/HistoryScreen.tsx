@@ -135,7 +135,6 @@ const HistoryScreen = () => {
                     <Text
                       numberOfLines={1}
                       ellipsizeMode='tail'
-                      style={{ fontFamily: 'Raleway-Light' }}
                       className='text-gray-600 w-auto  font-light text-[16px]'
                     >
                       {item.message}
