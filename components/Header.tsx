@@ -147,6 +147,7 @@ const Header = () => {
         'Shipping',
         'ContactUs',
         'SendMessage',
+        'AdminDashboard',
       ].includes(route.name) && (
         <View
           style={{
@@ -164,7 +165,6 @@ const Header = () => {
             <AntDesign name='search1' size={20} color='gray' />
             <TextInput
               placeholder='Искать'
-              style={{ fontFamily: 'Raleway-Regular' }}
               value={
                 route.name === 'Favourites' ? favouritesSearchTerm : searchTerm
               }
@@ -173,7 +173,7 @@ const Header = () => {
                   ? dispatch(setFavouritesSearchTerm(text))
                   : dispatch(setSearchTerm(text));
               }}
-              className='ml-2 font-semibold text-[16px] flex-1'
+              className='ml-2 text-gray-600 text-[16px] flex-1'
             />
           </View>
           <TouchableOpacity

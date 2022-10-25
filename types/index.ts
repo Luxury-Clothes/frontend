@@ -46,6 +46,7 @@ export interface IOrder {
   updated_at: Date;
   products: ICartProduct[];
   payment: IPayment;
+  status: string;
 }
 
 export interface IPayment {
