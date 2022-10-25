@@ -79,7 +79,7 @@ export const ordersSlice = createSlice({
       .addCase(
         createOrder.fulfilled,
         (state, action: PayloadAction<IOrder>) => {
-          state.orders.push(action.payload);
+          state.orders.unshift(action.payload);
         }
       );
   },
