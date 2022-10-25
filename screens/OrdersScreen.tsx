@@ -82,7 +82,7 @@ const OrdersScreen = () => {
                     Доставка в пункт выдачи
                   </Text>
                   <View className='text-[16px] flex-row items-center text-sm bg-blue-500 py-1 px-2 rounded-[30px] text-white'>
-                    <Text className='text-white'>Принято</Text>
+                    <Text className='text-white'>{item.status}</Text>
                   </View>
                 </View>
                 <Text className='text-gray-600'>

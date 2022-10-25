@@ -38,12 +38,31 @@ const LeftDrawerContent = () => {
               </Text>
             </TouchableOpacity>
           )}
+          {user && user.is_admin && (
+            <TouchableOpacity
+              className='flex-row items-center'
+              // @ts-ignore
+              onPress={() => navigation.navigate('AdminDashboard')}
+            >
+              <MaterialIcons
+                name='admin-panel-settings'
+                size={20}
+                color='gray'
+              />
+              <Text
+                className='ml-2 text-gray-700 text-[16px]'
+                style={{ fontFamily: 'Raleway-Regular' }}
+              >
+                Панель администратора
+              </Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             className='flex-row items-center'
             // @ts-ignore
             onPress={() => navigation.navigate('ShoppingCart')}
           >
-            <Ionicons name='cart-outline' size={16} color='gray' />
+            <Ionicons name='cart-outline' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}
@@ -56,7 +75,7 @@ const LeftDrawerContent = () => {
             onPress={() => navigation.navigate('Orders')}
             className='flex-row items-center'
           >
-            <SimpleLineIcons name='bag' size={16} color='gray' />
+            <SimpleLineIcons name='bag' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}
@@ -68,7 +87,7 @@ const LeftDrawerContent = () => {
             className='flex-row items-center' // @ts-ignore
             onPress={() => navigation.navigate('Favourites')}
           >
-            <FontAwesome name='heart-o' size={16} color='gray' />
+            <FontAwesome name='heart-o' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}
@@ -80,7 +99,7 @@ const LeftDrawerContent = () => {
             className='flex-row items-center' // @ts-ignore
             onPress={() => navigation.navigate('ContactUs')}
           >
-            <AntDesign name='message1' size={16} color='gray' />
+            <AntDesign name='message1' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}
@@ -92,7 +111,7 @@ const LeftDrawerContent = () => {
             className='flex-row items-center' // @ts-ignore
             onPress={() => navigation.navigate('History')}
           >
-            <Ionicons name='md-documents-outline' size={16} color='gray' />
+            <Ionicons name='md-documents-outline' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}
@@ -104,7 +123,7 @@ const LeftDrawerContent = () => {
             onPress={onLogout}
             className='flex-row items-center'
           >
-            <MaterialIcons name='logout' size={16} color='gray' />
+            <MaterialIcons name='logout' size={20} color='gray' />
             <Text
               className='ml-2 text-gray-700 text-[16px]'
               style={{ fontFamily: 'Raleway-Regular' }}

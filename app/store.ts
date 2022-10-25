@@ -5,6 +5,7 @@ import productsReducer from '../features/products/products';
 import cartReducer from '../features/cart/cart';
 import ordersReducer from '../features/orders/orders';
 import messagesReducer from '../features/messages/messages';
+import adminReducer from '../features/admin/admin';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     cart: cartReducer,
     orders: ordersReducer,
     messages: messagesReducer,
+    admin: adminReducer,
   },
 });
 
