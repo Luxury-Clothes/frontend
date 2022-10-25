@@ -51,6 +51,31 @@ export const fetchMoreUsers = createAsyncThunk(
   }
 );
 
+export const updateStatus = createAsyncThunk(
+  '/admin/updateStatus',
+  async (
+    {
+      id,
+      isAdmin,
+    }: {
+      id: string;
+      isAdmin: boolean;
+    },
+    thunkAPI
+  ) => {
+    try {
+      const { data } = await axios.patch(`/users/${id}`, {
+        isAdmin,
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue('error');
+    }
+  }
+);
+
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
@@ -65,7 +90,6 @@ export const adminSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(searchUsers.pending, (state) => {
         state.loading = true;
       })
@@ -86,6 +110,21 @@ export const adminSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchMoreUsers.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(updateStatus.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        updateStatus.fulfilled,
+        (state, action: PayloadAction<IUser>) => {
+          state.users = state.users.map((user) => {
+            return user.id === action.payload.id ? action.payload : user;
+          });
+          state.loading = false;
+        }
+      )
+      .addCase(updateStatus.rejected, (state, action) => {
         state.loading = false;
       });
   },

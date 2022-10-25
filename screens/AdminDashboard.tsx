@@ -2,25 +2,38 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import TextAvatar from 'react-native-text-avatar';
 import { AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
 import SelectDropdown from 'react-native-select-dropdown';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { searchUsers, setSearchTerm } from '../features/admin/admin';
+import {
+  searchUsers,
+  setSearchTerm,
+  updateStatus,
+  setPage,
+  fetchMoreUsers,
+} from '../features/admin/admin';
 import { useEffect } from 'react';
 
 const AdminDashboard = () => {
   const dispatch = useAppDispatch();
-  const { searchTerm, users, page, pages } = useAppSelector(
+
+  const { searchTerm, users, page, loading } = useAppSelector(
     (state) => state.admin
   );
+
   useEffect(() => {
     dispatch(searchUsers());
   }, [searchTerm]);
+
+  useEffect(() => {
+    if (page !== 1) dispatch(fetchMoreUsers());
+  }, [page]);
+
   const countries = ['Администратор', 'Покупатель'];
   return (
     <View style={{ flex: 1 }}>
@@ -56,16 +69,16 @@ const AdminDashboard = () => {
           style={{ flexGrow: 1, padding: 10, backgroundColor: '#fafafa' }}
           keyExtractor={(item) => item.id}
           data={users}
-          //   onEndReachedThreshold={0}
-          //   onEndReached={() => {
-          //     if (!loading) {
-          //       dispatch(setPage(page + 1));
-          //     }
-          //   }}
-          //   ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
+          onEndReachedThreshold={0}
+          onEndReached={() => {
+            if (!loading) {
+              dispatch(setPage(page + 1));
+            }
+          }}
+          ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
           renderItem={({ item }) => (
             <View
-              className='bg-white border  border-gray-200 rounded-xl p-4 mb-4 w-full flex flex-row '
+              className='bg-white border  border-gray-200 rounded p-4 mb-4 w-full flex flex-row'
               style={{
                 shadowColor: '#171717',
                 shadowOffset: { width: -2, height: 4 },
@@ -81,34 +94,54 @@ const AdminDashboard = () => {
               >
                 {item.username}
               </TextAvatar>
-              <View className='ml-4' style={{ flexGrow: 1 }}>
+              <View className='ml-4 w-[36%] justify-center'>
                 <Text className='text-[16px] font-semibold'>
                   {item.username}
                 </Text>
-                <Text className='text-xs text-gray-500'>{item.email}</Text>
+                <Text
+                  ellipsizeMode='tail'
+                  numberOfLines={1}
+                  className='text-xs  text-gray-500'
+                >
+                  {item.email}
+                </Text>
               </View>
               <View className='ml-4 flex-row items-center justify-center p-2 rounded bg-green-500 self-center '>
                 <SelectDropdown
                   data={countries}
                   dropdownIconPosition={'left'}
                   renderDropdownIcon={() => {
-                    return <Feather name='user' size={20} color='white' />;
+                    return item.is_admin ? (
+                      <MaterialIcons
+                        name='admin-panel-settings'
+                        size={20}
+                        color='white'
+                      />
+                    ) : (
+                      <Feather name='user' size={20} color='white' />
+                    );
                   }}
                   defaultValue={item.is_admin ? 'Администратор' : 'Покупатель'}
                   buttonStyle={{
                     backgroundColor: 'transparent',
                     height: 20,
-                    width: 120,
+                    width: 140,
                   }}
                   buttonTextStyle={{
                     color: 'white',
                     fontSize: 12,
+                    fontWeight: '600',
                     marginLeft: 0,
                     paddingLeft: 0,
                   }}
-                  dropdownStyle={{ width: 150 }}
-                  onSelect={(selectedItem, index) => {
-                    console.log(selectedItem, index);
+                  dropdownStyle={{ width: 160, borderRadius: 4 }}
+                  onSelect={(selectedItem) => {
+                    dispatch(
+                      updateStatus({
+                        id: item.id,
+                        isAdmin: selectedItem === 'Покупатель' ? false : true,
+                      })
+                    );
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
                     return selectedItem;
