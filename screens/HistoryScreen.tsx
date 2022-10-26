@@ -20,6 +20,7 @@ import { formatRelative } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { useNavigation } from '@react-navigation/native';
 
+import { FocusAwareStatusBar } from '../components';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import {
   getMessages,
@@ -42,6 +43,7 @@ const HistoryScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <FocusAwareStatusBar barStyle='dark-content' />
       {messages.length ? (
         <FlatList
           showsVerticalScrollIndicator={false}

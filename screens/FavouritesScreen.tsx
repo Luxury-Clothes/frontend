@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useEffect } from 'react';
 
-import { Card } from '../components';
+import { Card, FocusAwareStatusBar } from '../components';
 import { getFavourites } from '../features/products/products';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 
@@ -24,6 +24,7 @@ const FavouritesScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView className='flex-1 bg-white'>
+      <FocusAwareStatusBar barStyle='dark-content' />
       {favourites.length ? (
         <FlatList
           showsVerticalScrollIndicator={false}

@@ -42,7 +42,7 @@ const LeftDrawerContent = () => {
             <TouchableOpacity
               className='flex-row items-center'
               // @ts-ignore
-              onPress={() => navigation.navigate('AdminDashboard')}
+              onPress={() => navigation.navigate('Dashboard')}
             >
               <MaterialIcons
                 name='admin-panel-settings'

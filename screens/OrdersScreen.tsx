@@ -2,6 +2,7 @@ import { Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { FocusAwareStatusBar } from '../components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getOrders, setSelectedOrder } from '../features/orders/orders';
 
@@ -33,6 +34,7 @@ const OrdersScreen = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white', paddingHorizontal: 20 }}>
+      <FocusAwareStatusBar barStyle='dark-content' />
       {orders.length > 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}

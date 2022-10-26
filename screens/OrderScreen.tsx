@@ -1,15 +1,22 @@
 import { Text, View, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { FocusAwareStatusBar } from '../components';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import { months } from './OrdersScreen';
+import { getOrder } from '../features/orders/orders';
 import { setSelectedProduct } from '../features/products/products';
 
 const OrderScreen = () => {
   const { selectedOrder } = useAppSelector((state) => state.orders);
 
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getOrder(selectedOrder.id));
+  }, [selectedOrder.id]);
 
   const navigation = useNavigation();
 
@@ -122,6 +129,7 @@ const OrderScreen = () => {
         position: 'relative',
       }}
     >
+      <FocusAwareStatusBar barStyle='dark-content' />
       <ScrollView>
         <Text
           style={{

@@ -26,6 +26,19 @@ export const getOrders = createAsyncThunk(
   }
 );
 
+export const getOrder = createAsyncThunk(
+  'orders/getOrder',
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.get<IOrder>('/orders/' + id);
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error?.response?.data?.errors);
+    }
+  }
+);
+
 export const createOrder = createAsyncThunk(
   'orders/createOrder',
   async (_, thunkAPI) => {
@@ -76,6 +89,9 @@ export const ordersSlice = createSlice({
           state.orders = action.payload;
         }
       )
+      .addCase(getOrder.fulfilled, (state, action: PayloadAction<IOrder>) => {
+        state.selectedOrder = action.payload;
+      })
       .addCase(
         createOrder.fulfilled,
         (state, action: PayloadAction<IOrder>) => {

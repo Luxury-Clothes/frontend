@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, Keyboard, ScrollView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { login, resetError } from '../features/auth/auth';
-import { Button, Input, Loader } from '../components';
+import { Button, Input, Loader, FocusAwareStatusBar } from '../components';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -39,7 +38,7 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <StatusBar style='dark' />
+      <FocusAwareStatusBar barStyle='dark-content' />
       <Loader visible={loading} />
       <ScrollView
         showsVerticalScrollIndicator={false}

@@ -11,7 +11,9 @@ export { default as ContactUsScreen } from './ContactUsScreen';
 export { default as SendMessageScreen } from './SendMessageScreen';
 export { default as HistoryScreen } from './HistoryScreen';
 export { default as OrderScreen } from './OrderScreen';
-export { default as AdminDashboard } from './AdminDashboard';
+export { default as UsersScreen } from './UsersScreen';
+export { default as AllOrdersScreen } from './AllOrdersScreen';
+export { default as DashboardScreen } from './DashboardScreen';
 
 export { default as LeftDrawerScreen } from './LeftDrawerScreen';
 export { default as RightDrawerScreen } from './RightDrawerScreen';
