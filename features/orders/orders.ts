@@ -5,12 +5,18 @@ import { IOrder } from '../../types';
 
 interface IState {
   orders: IOrder[];
+  loading: boolean;
+  allOrders: IOrder[];
   selectedOrder: IOrder | null;
+  order: 'today' | 'week' | 'month' | 'all';
 }
 
 const initialState: IState = {
   orders: [],
+  allOrders: [],
+  loading: true,
   selectedOrder: null,
+  order: 'today',
 };
 
 export const getOrders = createAsyncThunk(
@@ -26,11 +32,51 @@ export const getOrders = createAsyncThunk(
   }
 );
 
+export const getAllOrders = createAsyncThunk(
+  'orders/getAllOrders',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get<IOrder[]>(
+        // @ts-ignore
+        '/orders/all?created_at=' + thunkAPI.getState().orders.order
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error?.response?.data?.errors);
+    }
+  }
+);
+
 export const getOrder = createAsyncThunk(
   'orders/getOrder',
-  async (id, thunkAPI) => {
+  async (id: string, thunkAPI) => {
     try {
       const { data } = await axios.get<IOrder>('/orders/' + id);
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error?.response?.data?.errors);
+    }
+  }
+);
+
+export const updateOrderStatus = createAsyncThunk(
+  'orders/updateOrderStatus',
+  async (
+    {
+      id,
+      status,
+    }: {
+      id: string;
+      status: string;
+    },
+    thunkAPI
+  ) => {
+    try {
+      const { data } = await axios.patch<IOrder>('/orders/' + id, {
+        status,
+      });
       return data;
     } catch (error) {
       console.log(error);
@@ -80,6 +126,12 @@ export const ordersSlice = createSlice({
     setSelectedOrder: (state, action: PayloadAction<IOrder>) => {
       state.selectedOrder = action.payload;
     },
+    setOrder: (
+      state,
+      action: PayloadAction<'today' | 'week' | 'month' | 'all'>
+    ) => {
+      state.order = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,10 +149,36 @@ export const ordersSlice = createSlice({
         (state, action: PayloadAction<IOrder>) => {
           state.orders.unshift(action.payload);
         }
-      );
+      )
+      .addCase(
+        updateOrderStatus.fulfilled,
+        (state, action: PayloadAction<IOrder>) => {
+          state.orders = state.orders.map((order) =>
+            order.id === action.payload.id
+              ? {
+                  ...order,
+                  status: action.payload.status,
+                }
+              : order
+          );
+        }
+      )
+      .addCase(getAllOrders.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(
+        getAllOrders.fulfilled,
+        (state, action: PayloadAction<IOrder[]>) => {
+          state.allOrders = action.payload;
+          state.loading = false;
+        }
+      )
+      .addCase(getAllOrders.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 
-export const { setSelectedOrder } = ordersSlice.actions;
+export const { setSelectedOrder, setOrder } = ordersSlice.actions;
 
 export default ordersSlice.reducer;

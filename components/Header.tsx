@@ -8,6 +8,7 @@ import {
   updateMessage,
   setSelectedSubject,
 } from '../features/messages/messages';
+import { setSelectedOrder } from '../features/orders/orders';
 import { sendMessage } from '../features/messages/messages';
 import {
   setSearchTerm,
@@ -124,7 +125,7 @@ const Header = () => {
               height: 50,
               width: 100,
             }}
-            source={require('./img/logo.png')}
+            source={require('../assets/logo.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity

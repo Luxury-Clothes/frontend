@@ -12,3 +12,4 @@ export { default as HomeScreenCard } from './HomeScreenCard';
 export { default as Footer } from './Footer';
 export { default as FilterModal } from './FilterModal';
 export { default as FocusAwareStatusBar } from './FocusAwareStatusBar';
+export { default as Order } from './Order';
