@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { FocusAwareStatusBar } from '../components';
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -39,6 +40,7 @@ const ContactUsScreen = () => {
         marginTop: -8,
       }}
     >
+      <FocusAwareStatusBar barStyle='dark-content' />
       <View className='flex-row bg-white pt-4'>
         <View
           style={{

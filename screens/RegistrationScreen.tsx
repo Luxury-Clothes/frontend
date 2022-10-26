@@ -9,11 +9,10 @@ import {
 } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { register, resetError } from '../features/auth/auth';
-import { Button, Input, Loader } from '../components';
+import { Button, Input, Loader, FocusAwareStatusBar } from '../components';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
@@ -51,7 +50,7 @@ const RegistrationScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={{ backgroundColor: '#fff', flex: 1 }}
     >
-      <StatusBar style="dark" />
+      <FocusAwareStatusBar barStyle='dark-content' />
       <Loader visible={loading} />
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -73,9 +72,9 @@ const RegistrationScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'email' }))
             }
-            iconName="email-outline"
-            label="E-mail"
-            placeholder="Ваш e-mail адрес"
+            iconName='email-outline'
+            label='E-mail'
+            placeholder='Ваш e-mail адрес'
             error={errors.email}
           />
 
@@ -85,9 +84,9 @@ const RegistrationScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'username' }))
             }
-            iconName="account-outline"
-            label="Полное Имя"
-            placeholder="Ваше полное имя"
+            iconName='account-outline'
+            label='Полное Имя'
+            placeholder='Ваше полное имя'
             error={errors.username}
           />
 
@@ -97,9 +96,9 @@ const RegistrationScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'password' }))
             }
-            iconName="lock-outline"
-            label="Пароль"
-            placeholder="Ваш пароль"
+            iconName='lock-outline'
+            label='Пароль'
+            placeholder='Ваш пароль'
             error={errors.password}
             password
           />
@@ -109,13 +108,13 @@ const RegistrationScreen = () => {
             onFocus={() =>
               dispatch(resetError({ error: null, input: 'confirmPassword' }))
             }
-            iconName="lock-outline"
-            label="Потворите пароль"
-            placeholder="Ваш пароль еще раз"
+            iconName='lock-outline'
+            label='Потворите пароль'
+            placeholder='Ваш пароль еще раз'
             error={errors.confirmPassword}
             password
           />
-          <Button title="Регистрация" onPress={handleRegister} />
+          <Button title='Регистрация' onPress={handleRegister} />
           <Text
             // @ts-ignore
             onPress={() => navigation.navigate('Login')}

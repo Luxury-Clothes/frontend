@@ -13,7 +13,7 @@ import { Entypo, AntDesign } from '@expo/vector-icons';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleFavourite } from '../features/products/products';
-import { Footer } from '../components';
+import { Footer, FocusAwareStatusBar } from '../components';
 import { addProduct, addProductToCart } from '../features/cart/cart';
 
 const DetailsScreen = () => {
@@ -66,6 +66,7 @@ const DetailsScreen = () => {
         position: 'relative',
       }}
     >
+      <FocusAwareStatusBar barStyle='dark-content' />
       <ScrollView>
         <View
           style={{

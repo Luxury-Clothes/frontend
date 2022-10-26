@@ -8,6 +8,7 @@ import {
   updateMessage,
   setSelectedSubject,
 } from '../features/messages/messages';
+import { setSelectedOrder } from '../features/orders/orders';
 import { sendMessage } from '../features/messages/messages';
 import {
   setSearchTerm,
@@ -78,7 +79,9 @@ const Header = () => {
               route.name === 'ShoppingCart' ||
               route.name === 'Shipping' ||
               route.name === 'SendMessage' ||
-              route.name === 'Order'
+              route.name === 'Order' ||
+              route.name === 'Users' ||
+              route.name === 'AllOrders'
                 ? // @ts-ignore
                   navigation.goBack()
                 : // @ts-ignore
@@ -95,7 +98,9 @@ const Header = () => {
           route.name === 'ShoppingCart' ||
           route.name === 'Shipping' ||
           route.name === 'SendMessage' ||
-          route.name === 'Order' ? (
+          route.name === 'Order' ||
+          route.name === 'Users' ||
+          route.name === 'AllOrders' ? (
             <AntDesign name='arrowleft' size={28} color='gray' />
           ) : (
             <Ionicons name='menu-outline' size={28} color='gray' />
@@ -105,7 +110,9 @@ const Header = () => {
             route.name === 'ShoppingCart' ||
             route.name === 'Shipping' ||
             route.name === 'SendMessage' ||
-            route.name === 'Order'
+            route.name === 'Order' ||
+            route.name === 'Users' ||
+            route.name === 'AllOrders'
               ? 'Назад'
               : 'Menu'}
           </Text>
@@ -118,7 +125,7 @@ const Header = () => {
               height: 50,
               width: 100,
             }}
-            source={require('./img/logo.png')}
+            source={require('../assets/logo.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -147,7 +154,9 @@ const Header = () => {
         'Shipping',
         'ContactUs',
         'SendMessage',
-        'AdminDashboard',
+        'Users',
+        'Dashboard',
+        'AllOrders',
       ].includes(route.name) && (
         <View
           style={{

@@ -12,6 +12,7 @@ import { useStripe } from '@stripe/stripe-react-native';
 import { useEffect } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../app/hooks';
+import { FocusAwareStatusBar } from '../components';
 import { setSelectedProduct } from '../features/products/products';
 import {
   removeProduct,
@@ -283,6 +284,7 @@ const MyCart = () => {
         position: 'relative',
       }}
     >
+      <FocusAwareStatusBar barStyle='dark-content' />
       <ScrollView>
         {/* <View
           style={{

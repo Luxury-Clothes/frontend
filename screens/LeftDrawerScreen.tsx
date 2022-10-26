@@ -17,7 +17,9 @@ import ContactUsScreen from './ContactUsScreen';
 import SendMessageScreen from './SendMessageScreen';
 import HistoryScreen from './HistoryScreen';
 import OrderScreen from './OrderScreen';
-import AdminDashboard from './AdminDashboard';
+import UsersScreen from './UsersScreen';
+import AllOrdersScreen from './AllOrdersScreen';
+import DashboardScreen from './DashboardScreen';
 
 import { LeftDrawerContent, Header } from '../components';
 import { init } from '../features/auth/auth';
@@ -141,8 +143,22 @@ const LeftDrawerScreen = () => {
         options={{
           header: () => <Header />,
         }}
-        name='AdminDashboard'
-        component={AdminDashboard}
+        name='Users'
+        component={UsersScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='AllOrders'
+        component={AllOrdersScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => null,
+        }}
+        name='Dashboard'
+        component={DashboardScreen}
       />
     </LeftDrawer.Navigator>
   );

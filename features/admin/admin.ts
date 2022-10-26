@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-import { IUser } from '../../types';
+import { IUser, IOrder } from '../../types';
 
 const initialState = {
   users: [],
@@ -101,6 +101,7 @@ export const adminSlice = createSlice({
       .addCase(searchUsers.rejected, (state, action) => {
         state.loading = false;
       })
+
       .addCase(fetchMoreUsers.pending, (state) => {
         state.loading = true;
       })

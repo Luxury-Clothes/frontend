@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { useEffect } from 'react';
 
-import { Card } from '../components';
+import { Card, FocusAwareStatusBar } from '../components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   searchProducts,
@@ -35,7 +35,8 @@ const ProductsScreen = ({ navigation }: any) => {
   }, [page]);
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className='flex-1 bg-white'>
+      <FocusAwareStatusBar barStyle='dark-content' />
       {products.length ? (
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -56,8 +57,8 @@ const ProductsScreen = ({ navigation }: any) => {
           )}
         />
       ) : (
-        <View className="flex-1 items-center justify-center">
-          <Text className="font-bold text-[20px] text-gray-500">
+        <View className='flex-1 items-center justify-center'>
+          <Text className='font-bold text-[20px] text-gray-500'>
             No products found
           </Text>
         </View>

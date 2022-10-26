@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { FocusAwareStatusBar } from '../components';
 import { useAppSelector, useAppDispatch } from '../app/hooks';
 import {
   setSelectedSubject,
@@ -19,6 +20,7 @@ const SendMessageScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <FocusAwareStatusBar barStyle='dark-content' />
       <View className='p-4 bg-[#333] w-full'>
         <Text className='text-white  text-[18px] font-medium'>
           {selectedMessage ? 'Ваше обращение' : ' Новое обращение'}
