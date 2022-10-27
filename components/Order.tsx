@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useAppDispatch } from '../app/hooks';
 import { setSelectedOrder } from '../features/orders/orders';
 import { months } from '../config/utils';
-import { iteratorSymbol } from 'immer/dist/internal';
 
 export interface OrderProps {
   item: IOrder;

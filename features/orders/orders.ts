@@ -7,6 +7,8 @@ interface IState {
   orders: IOrder[];
   loading: boolean;
   allOrders: IOrder[];
+  page: number;
+  pages: number;
   selectedOrder: IOrder | null;
   order: 'today' | 'week' | 'month' | 'all';
 }
@@ -14,6 +16,8 @@ interface IState {
 const initialState: IState = {
   orders: [],
   allOrders: [],
+  page: 1,
+  pages: 1,
   loading: true,
   selectedOrder: null,
   order: 'today',
@@ -36,7 +40,7 @@ export const getAllOrders = createAsyncThunk(
   'orders/getAllOrders',
   async (_, thunkAPI) => {
     try {
-      const { data } = await axios.get<IOrder[]>(
+      const { data } = await axios.get(
         // @ts-ignore
         '/orders/all?created_at=' + thunkAPI.getState().orders.order
       );
@@ -44,6 +48,28 @@ export const getAllOrders = createAsyncThunk(
     } catch (error) {
       console.log(error);
       return thunkAPI.rejectWithValue(error?.response?.data?.errors);
+    }
+  }
+);
+
+export const fetchMoreOrders = createAsyncThunk(
+  '/orders/fetchMoreOrders',
+  async (_, thunkAPI) => {
+    try {
+      // @ts-ignore
+      const page = thunkAPI.getState().orders.page;
+
+      const { data } = await axios.get(
+        `/orders/all?created_at=${
+          // @ts-ignore
+          thunkAPI.getState().orders.order
+        }&page=${page}`
+      );
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue('error');
     }
   }
 );
@@ -132,6 +158,9 @@ export const ordersSlice = createSlice({
     ) => {
       state.order = action.payload;
     },
+    setPage: (state, action) => {
+      state.page = Math.min(action.payload, state.pages);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -166,19 +195,28 @@ export const ordersSlice = createSlice({
       .addCase(getAllOrders.pending, (state, action) => {
         state.loading = true;
       })
-      .addCase(
-        getAllOrders.fulfilled,
-        (state, action: PayloadAction<IOrder[]>) => {
-          state.allOrders = action.payload;
-          state.loading = false;
-        }
-      )
+      .addCase(getAllOrders.fulfilled, (state, action) => {
+        state.allOrders = action.payload.orders;
+        state.pages = action.payload.pages;
+        state.loading = false;
+      })
       .addCase(getAllOrders.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(fetchMoreOrders.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchMoreOrders.fulfilled, (state, action) => {
+        state.allOrders = [...state.allOrders, ...action.payload.orders];
+        state.pages = action.payload.pages;
+        state.loading = false;
+      })
+      .addCase(fetchMoreOrders.rejected, (state, action) => {
         state.loading = false;
       });
   },
 });
 
-export const { setSelectedOrder, setOrder } = ordersSlice.actions;
+export const { setSelectedOrder, setOrder, setPage } = ordersSlice.actions;
 
 export default ordersSlice.reducer;
