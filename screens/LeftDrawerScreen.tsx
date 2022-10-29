@@ -20,6 +20,7 @@ import OrderScreen from './OrderScreen';
 import UsersScreen from './UsersScreen';
 import AllOrdersScreen from './AllOrdersScreen';
 import DashboardScreen from './DashboardScreen';
+import StatsScreen from './StatsScreen';
 
 import { LeftDrawerContent, Header } from '../components';
 import { init } from '../features/auth/auth';
@@ -159,6 +160,13 @@ const LeftDrawerScreen = () => {
         }}
         name='Dashboard'
         component={DashboardScreen}
+      />
+      <LeftDrawer.Screen
+        options={{
+          header: () => <Header />,
+        }}
+        name='Stats'
+        component={StatsScreen}
       />
     </LeftDrawer.Navigator>
   );

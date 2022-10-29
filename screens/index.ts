@@ -14,6 +14,7 @@ export { default as OrderScreen } from './OrderScreen';
 export { default as UsersScreen } from './UsersScreen';
 export { default as AllOrdersScreen } from './AllOrdersScreen';
 export { default as DashboardScreen } from './DashboardScreen';
+export { default as StatsScreen } from './StatsScreen';
 
 export { default as LeftDrawerScreen } from './LeftDrawerScreen';
 export { default as RightDrawerScreen } from './RightDrawerScreen';

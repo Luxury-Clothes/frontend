@@ -70,7 +70,11 @@ const DashboardScreen = () => {
               Сообщения
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity className='flex-row items-center mt-6'>
+          <TouchableOpacity
+            // @ts-ignore
+            onPress={() => navigation.navigate('Stats')}
+            className='flex-row items-center mt-6'
+          >
             <AntDesign name='piechart' size={24} color='white' />
             <Text className='text-gray-400 ml-4 text-[14px] font-bold'>
               Статистика
