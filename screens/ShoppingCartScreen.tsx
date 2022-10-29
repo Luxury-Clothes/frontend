@@ -87,7 +87,7 @@ const MyCart = () => {
       dispatch(clearCart());
       dispatch(clearProductsInCart());
       // @ts-ignore
-      navigation.goBack();
+      navigation.navigate('Orders');
     }
   };
 

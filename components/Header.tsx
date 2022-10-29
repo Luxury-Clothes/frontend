@@ -8,7 +8,6 @@ import {
   updateMessage,
   setSelectedSubject,
 } from '../features/messages/messages';
-import { setSelectedOrder } from '../features/orders/orders';
 import { sendMessage } from '../features/messages/messages';
 import {
   setSearchTerm,
@@ -81,7 +80,8 @@ const Header = () => {
               route.name === 'SendMessage' ||
               route.name === 'Order' ||
               route.name === 'Users' ||
-              route.name === 'AllOrders'
+              route.name === 'AllOrders' ||
+              route.name === 'Stats'
                 ? // @ts-ignore
                   navigation.goBack()
                 : // @ts-ignore
@@ -100,7 +100,8 @@ const Header = () => {
           route.name === 'SendMessage' ||
           route.name === 'Order' ||
           route.name === 'Users' ||
-          route.name === 'AllOrders' ? (
+          route.name === 'AllOrders' ||
+          route.name === 'Stats' ? (
             <AntDesign name='arrowleft' size={28} color='gray' />
           ) : (
             <Ionicons name='menu-outline' size={28} color='gray' />
@@ -112,7 +113,8 @@ const Header = () => {
             route.name === 'SendMessage' ||
             route.name === 'Order' ||
             route.name === 'Users' ||
-            route.name === 'AllOrders'
+            route.name === 'AllOrders' ||
+            route.name === 'Stats'
               ? 'Назад'
               : 'Menu'}
           </Text>
@@ -157,6 +159,7 @@ const Header = () => {
         'Users',
         'Dashboard',
         'AllOrders',
+        'Stats',
       ].includes(route.name) && (
         <View
           style={{
