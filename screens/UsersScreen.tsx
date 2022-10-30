@@ -24,6 +24,7 @@ import {
   fetchMoreUsers,
 } from '../features/admin/admin';
 import { useEffect } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const UsersScreen = () => {
   const dispatch = useAppDispatch();
@@ -75,7 +76,7 @@ const UsersScreen = () => {
           showsVerticalScrollIndicator={false}
           style={{
             flexGrow: 1,
-            padding: 10,
+            padding: 20,
             backgroundColor: '#fafafa',
             marginBottom: 40,
           }}
@@ -90,7 +91,7 @@ const UsersScreen = () => {
           ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
           renderItem={({ item }) => (
             <View
-              className='bg-white rounded  p-4 py-8 mb-4 w-full flex flex-row'
+              className='bg-white rounded-lg border border-gray-100  p-4 py-4 mb-4 w-full'
               style={{
                 shadowColor: '#171717',
                 shadowOffset: { width: -2, height: 4 },
@@ -98,31 +99,51 @@ const UsersScreen = () => {
                 shadowRadius: 3,
               }}
             >
-              <TextAvatar
-                backgroundColor={'#202639'}
-                textColor={'white'}
-                size={50}
-                type={'circle'} // optional
-              >
-                {item.username}
-              </TextAvatar>
-              <View className='ml-4 w-[36%] justify-center'>
-                <Text className='text-[16px] font-semibold'>
-                  {item.username}
-                </Text>
-                <Text
-                  ellipsizeMode='tail'
-                  numberOfLines={1}
-                  className='text-xs  text-gray-500'
+              <View className='flex flex-row items-center'>
+                <LinearGradient
+                  colors={['#f1f5f9', '#e2e8f0']}
+                  start={{ x: 0, y: 0.5 }}
+                  end={{ x: 1, y: 0.5 }}
+                  className='rounded-full w-16 h-16 items-center justify-center'
                 >
-                  {item.email}
-                </Text>
+                  <Text className='text-[18px]'>{item?.username[0]}</Text>
+                </LinearGradient>
+                {/* <TextAvatar
+                  backgroundColor={'#202639'}
+                  textColor={'white'}
+                  size={50}
+                  type={'circle'} // optional
+                >
+                  {item.username}
+                </TextAvatar> */}
+                <View className='ml-4 justify-center mr-auto'>
+                  <Text className='text-[18px] font-semibold text-[#333]'>
+                    {item.username}
+                  </Text>
+                  <Text className='text-sm  text-gray-500'>{item.email}</Text>
+                </View>
+
+                <TouchableOpacity className='ml-auto w-14 h-14 rounded-full bg-slate-100 items-center justify-center'>
+                  {item.is_admin ? (
+                    <MaterialIcons
+                      name='admin-panel-settings'
+                      size={20}
+                      color='#333'
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name='cart-outline'
+                      size={20}
+                      color='#333'
+                    />
+                  )}
+                </TouchableOpacity>
               </View>
-              <LinearGradient
+              {/* <LinearGradient
                 colors={['#202639', '#3f4c77']}
                 start={{ x: 0, y: 0.5 }}
                 end={{ x: 1, y: 0.5 }}
-                className='ml-4 flex-row items-center justify-center p-2 rounded  self-center'
+                className='w-full mt-4 flex-row items-center justify-center p-3 rounded  self-center'
               >
                 <SelectDropdown
                   data={countries}
@@ -151,7 +172,7 @@ const UsersScreen = () => {
                   }}
                   buttonTextStyle={{
                     color: 'white',
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: '600',
                     marginLeft: 0,
                     paddingLeft: 0,
@@ -177,7 +198,8 @@ const UsersScreen = () => {
                     return item;
                   }}
                 />
-              </LinearGradient>
+              </LinearGradient> */}
+
               {/* <TouchableOpacity className='ml-4 flex-row items-center justify-center p-2 rounded bg-green-500 self-center '>
                 {item.is_admin ? (
                   <MaterialIcons

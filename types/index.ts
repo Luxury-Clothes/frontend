@@ -65,3 +65,9 @@ export interface IMessage {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface ICategoriesStats {
+  amount: number;
+  sum: number;
+  category: string;
+}

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import axios from 'axios';
 
-import { IUser, IOrder } from '../../types';
+import { IUser } from '../../types';
 
 const initialState = {
   users: [],
@@ -10,7 +10,29 @@ const initialState = {
   page: 1,
   pages: 1,
   loading: false,
+  newUsers: 0,
+  oldUsers: 1,
+  newOrders: 0,
+  oldOrders: 1,
+  newMessages: 0,
+  oldMessages: 1,
+  totalEarnings: 0,
+  categoriesStats: [],
+  monthlyEarnings: [],
 };
+
+export const getStats = createAsyncThunk(
+  '/admin/stats',
+  async (_, thunkAPI) => {
+    try {
+      const { data } = await axios.get('/products/stats');
+      // console.log(data);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue('error');
+    }
+  }
+);
 
 export const searchUsers = createAsyncThunk(
   '/admin/searchUsers',
@@ -101,7 +123,34 @@ export const adminSlice = createSlice({
       .addCase(searchUsers.rejected, (state, action) => {
         state.loading = false;
       })
+      .addCase(getStats.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getStats.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(getStats.fulfilled, (state, action) => {
+        state.loading = false;
+        state.newUsers = +action.payload.users.newUsers.count;
+        state.newOrders = +action.payload.orders.newOrders.count;
+        state.newMessages = +action.payload.messages.newMessages.count;
+        state.oldUsers =
+          +action.payload.users.oldUsers.count === 0
+            ? 1
+            : +action.payload.users.oldUsers.count;
+        state.oldOrders =
+          +action.payload.orders.oldOrders.count === 0
+            ? 1
+            : +action.payload.orders.oldOrders.count;
+        state.oldMessages =
+          +action.payload.messages.oldMessages.count === 0
+            ? 1
+            : +action.payload.messages.oldMessages.count;
 
+        state.totalEarnings = action.payload.totalEarnings.earnings;
+        state.categoriesStats = action.payload.categories;
+        state.monthlyEarnings = action.payload.monthlyEarnings;
+      })
       .addCase(fetchMoreUsers.pending, (state) => {
         state.loading = true;
       })
