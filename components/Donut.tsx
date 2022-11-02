@@ -61,12 +61,16 @@ export default function Donut({
     animated.addListener(
       (v) => {
         const maxPerc = (100 * v.value) / max;
+
         const strokeDashoffset =
-          circumference - (circumference * maxPerc) / 100;
+          circumference -
+          (circumference * (v.value >= 100 ? 100 : v.value)) / 100;
         if (inputRef?.current) {
           // @ts-ignore
           inputRef.current.setNativeProps({
-            text: textHidden ? '' : `+${Math.round(v.value)}%`,
+            text: textHidden
+              ? ''
+              : `${v.value < 0 ? '' : '+'}${Math.round(v.value)}%`,
           });
         }
         if (circleRef?.current) {
@@ -127,7 +131,7 @@ export default function Donut({
         defaultValue=''
         style={[
           StyleSheet.absoluteFillObject,
-          { fontSize: radius / 2.5, color: textColor ?? color },
+          { fontSize: radius / 3, color: textColor ?? color },
           styles.text,
         ]}
       />

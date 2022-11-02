@@ -256,7 +256,7 @@ const OrderScreen = () => {
               </View>
             </View>
           </View>
-          {user.is_admin && (
+          {user?.is_admin && (
             <>
               <View
                 style={{

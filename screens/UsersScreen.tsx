@@ -4,8 +4,9 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
-import TextAvatar from 'react-native-text-avatar';
+import { useState } from 'react';
 import { FocusAwareStatusBar } from '../components';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
@@ -13,7 +14,6 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import SelectDropdown from 'react-native-select-dropdown';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -24,6 +24,7 @@ import {
   fetchMoreUsers,
 } from '../features/admin/admin';
 import { useEffect } from 'react';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const UsersScreen = () => {
   const dispatch = useAppDispatch();
@@ -40,7 +41,8 @@ const UsersScreen = () => {
     if (page !== 1) dispatch(fetchMoreUsers());
   }, [page]);
 
-  const countries = ['Администратор', 'Покупатель'];
+  const roles = ['Администратор', 'Покупатель'];
+  const [selected, setSelected] = useState(undefined);
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       <FocusAwareStatusBar barStyle='dark-content' />
@@ -75,7 +77,7 @@ const UsersScreen = () => {
           showsVerticalScrollIndicator={false}
           style={{
             flexGrow: 1,
-            padding: 10,
+            padding: 20,
             backgroundColor: '#fafafa',
             marginBottom: 40,
           }}
@@ -90,7 +92,7 @@ const UsersScreen = () => {
           ListFooterComponent={<View>{loading && <ActivityIndicator />}</View>}
           renderItem={({ item }) => (
             <View
-              className='bg-white rounded  p-4 py-8 mb-4 w-full flex flex-row'
+              className='bg-white rounded-lg border border-gray-100  p-4 py-4 mb-4 w-full'
               style={{
                 shadowColor: '#171717',
                 shadowOffset: { width: -2, height: 4 },
@@ -98,69 +100,61 @@ const UsersScreen = () => {
                 shadowRadius: 3,
               }}
             >
-              <TextAvatar
-                backgroundColor={'#202639'}
-                textColor={'white'}
-                size={50}
-                type={'circle'} // optional
-              >
-                {item.username}
-              </TextAvatar>
-              <View className='ml-4 w-[36%] justify-center'>
-                <Text className='text-[16px] font-semibold'>
-                  {item.username}
-                </Text>
-                <Text
-                  ellipsizeMode='tail'
-                  numberOfLines={1}
-                  className='text-xs  text-gray-500'
+              <View className='flex flex-row items-center'>
+                <LinearGradient
+                  colors={['#f1f5f9', '#e2e8f0']}
+                  start={{ x: 0, y: 0.5 }}
+                  end={{ x: 1, y: 0.5 }}
+                  className='rounded-full w-16 h-16 items-center justify-center'
                 >
-                  {item.email}
-                </Text>
-              </View>
-              <LinearGradient
-                colors={['#202639', '#3f4c77']}
-                start={{ x: 0, y: 0.5 }}
-                end={{ x: 1, y: 0.5 }}
-                className='ml-4 flex-row items-center justify-center p-2 rounded  self-center'
-              >
+                  <Text className='text-[18px]'>{item?.username[0]}</Text>
+                </LinearGradient>
+
+                <View className='ml-4 justify-center mr-auto'>
+                  <Text className='text-[18px] font-semibold text-[#333]'>
+                    {item.username}
+                  </Text>
+                  <Text className='text-sm  text-gray-500'>{item.email}</Text>
+                </View>
+
                 <SelectDropdown
-                  data={countries}
+                  data={roles}
                   dropdownIconPosition={'left'}
                   renderDropdownIcon={() => {
                     return item.is_admin ? (
                       <MaterialIcons
                         name='admin-panel-settings'
                         size={20}
-                        color='white'
+                        color='#333'
                       />
                     ) : (
                       <MaterialCommunityIcons
                         name='cart-outline'
                         size={20}
-                        color='white'
+                        color='#333'
                       />
-                      // <Feather name='user' size={20} color='white' />
                     );
                   }}
                   defaultValue={item.is_admin ? 'Администратор' : 'Покупатель'}
                   buttonStyle={{
-                    backgroundColor: 'transparent',
-                    height: 20,
-                    width: 140,
+                    backgroundColor: '#f1f5f9',
+                    padding: 16,
+                    width: 60,
+                    height: 60,
+                    borderRadius: 5000,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                   buttonTextStyle={{
-                    color: 'white',
-                    fontSize: 12,
-                    fontWeight: '600',
-                    marginLeft: 0,
-                    paddingLeft: 0,
+                    display: 'none',
                   }}
                   dropdownStyle={{
                     width: 160,
                     borderRadius: 4,
-                    marginTop: 16,
-                    marginLeft: -10,
+                    marginTop: 10,
+                    marginLeft: -70,
                   }}
                   onSelect={(selectedItem) => {
                     dispatch(
@@ -177,22 +171,8 @@ const UsersScreen = () => {
                     return item;
                   }}
                 />
-              </LinearGradient>
-              {/* <TouchableOpacity className='ml-4 flex-row items-center justify-center p-2 rounded bg-green-500 self-center '>
-                {item.is_admin ? (
-                  <MaterialIcons
-                    name='admin-panel-settings'
-                    size={20}
-                    color='white'
-                  />
-                ) : (
-                  <Feather name='user' size={20} color='white' />
-                )}
-
-                <Text className='ml-2 text-xs font-semibold text-white'>
-                  {item.is_admin ? 'Администратор' : 'Покупатель'}
-                </Text>
-              </TouchableOpacity> */}
+                {/* </TouchableOpacity> */}
+              </View>
             </View>
           )}
         />
