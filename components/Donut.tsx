@@ -68,7 +68,9 @@ export default function Donut({
         if (inputRef?.current) {
           // @ts-ignore
           inputRef.current.setNativeProps({
-            text: textHidden ? '' : `+${Math.round(v.value)}%`,
+            text: textHidden
+              ? ''
+              : `${v.value < 0 ? '' : '+'}${Math.round(v.value)}%`,
           });
         }
         if (circleRef?.current) {

@@ -130,17 +130,17 @@ const HistoryScreen = () => {
                     <Text
                       numberOfLines={1}
                       ellipsizeMode='tail'
-                      className='font-semibold text-[16px] mr-2 max-w-[50%]'
+                      className='font-semibold text-[16px] mr-2'
                     >
                       {item.subject}
                     </Text>
-                    <Text
+                    {/* <Text
                       numberOfLines={1}
                       ellipsizeMode='tail'
                       className='text-gray-600 w-auto  font-light text-[16px]'
                     >
                       {item.message}
-                    </Text>
+                    </Text> */}
                   </View>
                   <View className='flex-row justify-between'>
                     <Text className='text-sm inline float-left'>

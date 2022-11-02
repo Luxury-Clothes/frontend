@@ -93,92 +93,71 @@ export default function StatsScreen() {
       <FocusAwareStatusBar barStyle='dark-content' />
 
       <LinearGradient
-        colors={['#0ea5e9', '#7dd3fc']}
+        colors={['#2196f3', '#443fa2']}
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
-        style={{
-          shadowColor: '#171717',
-          shadowOffset: { width: -3, height: 5 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          backgroundColor: 'skyblue',
-        }}
-        className='p-4 rounded-2xl flex flex-row items-center justify-between'
+        className='p-4 rounded-2xl flex  items-center justify-between'
       >
-        <View className=''>
-          <Feather name='user-plus' size={36} color='white' />
-          <Text className='font-bold text-[24px] my-2 text-white'>
-            {newUsers}
-          </Text>
-          <Text className='text-gray-100 text-[20px] font-[600]'>
-            Новых покупателей
-          </Text>
-        </View>
         <Donut
           percentage={(newUsers / oldUsers - 1) * 100}
           color={'white'}
           // delay={500 + 100 * 1}
+          strokeWidth={5}
           radius={60}
           max={100}
         />
-      </LinearGradient>
-      <LinearGradient
-        colors={['#22c55e', '#86efac']}
-        start={{ x: 0, y: 0.5 }}
-        end={{ x: 1, y: 0.5 }}
-        style={{
-          shadowColor: '#171717',
-          shadowOffset: { width: -3, height: 5 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-        }}
-        className='p-4 mt-8  rounded-2xl flex flex-row items-center justify-between'
-      >
-        <View className=''>
-          <FontAwesome name='shopping-bag' size={36} color='white' />
-          <Text className='font-bold text-[24px] my-2 text-white'>
-            {newOrders}
+        <View className='items-center'>
+          <Text className='font-[300] text-[20px] mt-4 text-white'>
+            {newUsers}
           </Text>
-          <Text className='text-gray-100 text-[20px] font-[600]'>
-            Оформленных заказов
+          <Text className='text-gray-100 text-[16px] font-[300]'>
+            Покупателей
           </Text>
         </View>
+      </LinearGradient>
+      <LinearGradient
+        colors={['#43a047', '#2196f3']}
+        start={{ x: 0, y: 0.5 }}
+        end={{ x: 1, y: 0.5 }}
+        className='p-4 mt-8 rounded-2xl  items-center justify-between'
+      >
         <Donut
           percentage={(newOrders / oldOrders - 1) * 100}
           color={'white'}
           radius={60}
+          strokeWidth={5}
           // delay={500 + 100 * 4}
           max={100}
         />
+        <View className='items-center'>
+          <Text className='font-[300] text-[20px] mt-4 text-white'>
+            {newOrders}
+          </Text>
+          <Text className='text-gray-100 text-[16px] font-[300]'>Заказов</Text>
+        </View>
       </LinearGradient>
       <LinearGradient
-        colors={['#1f2937', '#4b5563']}
+        colors={['#ff9800', '#ff6384']}
         start={{ x: 0, y: 0.5 }}
         end={{ x: 1, y: 0.5 }}
-        style={{
-          shadowColor: '#171717',
-          shadowOffset: { width: -3, height: 5 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-        }}
-        className='p-4 mt-8 bg-gray-800 rounded-2xl flex flex-row items-center justify-between'
+        className='p-4 mt-8 bg-gray-800 rounded-2xl  items-center justify-between'
       >
-        <View className=''>
-          <AntDesign name='message1' size={36} color='white' />
-          <Text className='font-bold text-[24px] my-2 text-white'>
-            {newMessages}
-          </Text>
-          <Text className='text-gray-100 text-[20px] font-[600]'>
-            Полученных сообщений
-          </Text>
-        </View>
         <Donut
           percentage={(newMessages / oldMessages - 1) * 100}
           color={'white'}
           radius={60}
           // delay={500 + 100 * 6}
+          strokeWidth={5}
           max={100}
         />
+        <View className='items-center'>
+          <Text className='font-[300] text-[20px] mt-4 text-white'>
+            {newMessages}
+          </Text>
+          <Text className='text-gray-100 text-[16px] font-[300]'>
+            Сообщений
+          </Text>
+        </View>
       </LinearGradient>
       <LinearGradient
         colors={['#6366f1', '#c4b5fd']}
@@ -296,6 +275,7 @@ export default function StatsScreen() {
           }}
         />
       </View>
+      <View className='mt-20'></View>
     </ScrollView>
   );
 }
