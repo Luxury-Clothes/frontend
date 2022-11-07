@@ -4,8 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { FocusAwareStatusBar, Order } from '../components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { months } from '../config/utils';
-import { getOrders, setSelectedOrder } from '../features/orders/orders';
+import { getOrders } from '../features/orders/orders';
 
 const OrdersScreen = () => {
   const dispatch = useAppDispatch();

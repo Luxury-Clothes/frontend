@@ -25,13 +25,16 @@ const OrderScreen = () => {
 
   const isFocused = useIsFocused();
 
+  // useEffect(() => {
+  //   !isFocused && dispatch(setSelectedOrder(null));
+  // }, [isFocused]);
   useEffect(() => {
-    !isFocused && dispatch(setSelectedOrder(null));
+    isFocused && selectedOrder && dispatch(getOrder(selectedOrder?.id));
   }, [isFocused]);
 
-  useEffect(() => {
-    if (selectedOrder) dispatch(getOrder(selectedOrder?.id));
-  }, [selectedOrder?.id]);
+  // useEffect(() => {
+  //   if (selectedOrder) dispatch(getOrder(selectedOrder?.id));
+  // }, [selectedOrder?.id]);
 
   const navigation = useNavigation();
 
