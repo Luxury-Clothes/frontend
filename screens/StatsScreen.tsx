@@ -7,10 +7,10 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Donut, FocusAwareStatusBar } from '../components';
-import { Feather, FontAwesome, AntDesign } from '@expo/vector-icons';
 import { LineChart, BarChart } from 'react-native-chart-kit';
 
 import { fullMonths } from '../config/utils';
@@ -20,8 +20,6 @@ import { useAppSelector, useAppDispatch } from '../app/hooks';
 const screenWidth = Dimensions.get('window').width - 40;
 
 export default function StatsScreen() {
-  const { categories } = useAppSelector((state) => state.products);
-
   const {
     loading,
     newUsers,
@@ -35,11 +33,13 @@ export default function StatsScreen() {
     monthlyEarnings,
   } = useAppSelector((state) => state.admin);
 
+  const isFocused = useIsFocused();
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getStats());
-  }, []);
+    isFocused && dispatch(getStats());
+  }, [isFocused]);
 
   const formatter = Intl.NumberFormat('ru', { notation: 'standard' });
 
