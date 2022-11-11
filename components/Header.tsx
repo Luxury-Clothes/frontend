@@ -116,18 +116,22 @@ const Header = () => {
             route.name === 'AllOrders' ||
             route.name === 'Stats'
               ? 'Назад'
-              : 'Menu'}
+              : 'Meню'}
           </Text>
         </TouchableOpacity>
-        {/* @ts-ignore */}
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity
+          className='mx-auto'
+          /* @ts-ignore */
+          onPress={() => navigation.navigate('Home')}
+        >
           <Image
             style={{
               resizeMode: 'contain',
               height: 50,
-              width: 100,
+              width: 150,
+              marginLeft: 20,
             }}
-            source={require('../assets/logo.png')}
+            source={require('../assets/logo-no-background.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
